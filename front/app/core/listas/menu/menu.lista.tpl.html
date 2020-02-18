@@ -1,0 +1,74 @@
+<style>
+  .doc-menu,
+  .doc-menu ul {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .menu-edit-button{
+    color:RoyalBlue;
+  }
+  .menu-delete-button{
+    color:red;
+  }  
+</style>
+<!--
+        <div layout="row" style="height:40px" layout-align="start center" ng-if="item.id_tipo==='1'" 
+              ng-mouseover="ctrl.navigateTo(item,$event)"  ng-mouseleave="ctrl.activeItem=''">
+
+-->
+
+<div layout="row">
+  <md-select ng-model="ctrl.selectedSeccion" placeholder="Sección" class="md-no-underline">
+    <md-option ng-repeat="item in ctrl.secciones" ng-value="item.id" ng-selected="$first">
+      {{item.nombre}}
+    </md-option>          
+  </md-select>
+</div>
+
+<md-content flex>
+
+    <div layout="row" style="height:40px" layout-align="start center" 
+        ng-mouseover="ctrl.showButtons=true" ng-mouseleave="ctrl.showButtons=false">
+        <div >
+            Root
+        </div>        
+
+        <div ng-show="ctrl.showButtons">
+          <md-button class="md-icon-button menu-edit-button" aria-label="add" ng-click="ctrl.agregar(0)">
+            <span class ="fa fa-plus-circle fa-fw fa-lg" ></span>
+          </md-button>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="categoryTree">
+      <div layout="row" layout-align="start center" style="height: 40px"
+            ng-mouseover="ctrl.navigateTo(item,$event)"  ng-mouseleave="ctrl.activeItem=''">
+
+        <div>
+          {{ item.nombre }}
+        </div>
+
+        <div ng-show="item==ctrl.activeItem">
+          <md-button class="md-icon-button menu-edit-button" aria-label="add" ng-click="ctrl.agregar(item.id)">
+            <span class ="fa fa-plus-circle fa-fw fa-lg" ></span>
+          </md-button>
+          <md-button class="md-icon-button menu-edit-button" aria-label="edit" ng-click="ctrl.selOne(item)">
+            <span class ="fa fa-edit fa-fw fa-lg" ></span>
+          </md-button>
+          <md-button class="md-icon-button menu-delete-button" aria-label="delete" ng-click="ctrl.delOne(item)">
+            <span class ="fa fa-remove fa-fw fa-lg" ></span>
+          </md-button>          
+        </div>
+      </div>
+
+      <ul class="doc-menu" ng-if="item.child">
+          <li ng-repeat="item in item.child | filter:{ id_seccion: ctrl.selectedSeccion }" ng-include="'categoryTree'"></li>
+      </ul>
+    </script>
+
+    <ul class="doc-menu">
+        <li ng-repeat="item in ctrl.arbol | filter:{ id_seccion: ctrl.selectedSeccion }" ng-include="'categoryTree'"></li>
+    </ul>    
+
+</md-content>

@@ -1,0 +1,209 @@
+<style type="text/css">  
+.slider {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.slide.current {
+  opacity: 1;
+}
+
+.slide .content {
+  position: absolute;
+  bottom: 70px;
+  left: -600px;
+  opacity: 0;
+  width: 600px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  padding: 35px;
+}
+
+.slide .content h1 {
+  margin-bottom: 10px;
+}
+
+.slide.current .content {
+  opacity: 1;
+  transform: translateX(600px);
+  transition: all 0.7s ease-in-out 0.3s;
+}
+
+.buttons button#next {
+  position: absolute;
+  top: 40%;
+  right: 15px;
+}
+
+.buttons button#prev {
+  position: absolute;
+  top: 40%;
+  left: 15px;
+}
+
+.buttons button {
+  border: 2px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  padding: 13px 15px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.buttons button:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+@media (max-width: 500px) {
+  .slide .content {
+    bottom: -300px;
+    left: 0;
+    width: 100%;
+  }
+
+  .slide.current .content {
+    transform: translateY(-300px);
+  }
+}
+
+
+
+/* Backgorund Images */
+ 
+.slide:first-child {
+  background: url('front/assets/img/pic01-min.jpg') no-repeat
+    center top/cover;
+}
+.slide:nth-child(2) {
+  background: url('front/assets/img/pic03-min.jpg') no-repeat
+    center top/cover;
+}
+.slide:nth-child(3) {
+  background: url('front/assets/img/pic04-min.png') no-repeat
+    center top/cover;
+}
+.slide:nth-child(4) {
+  background: url('front/assets/img/pic07-min.jpg') no-repeat
+    center top/cover;
+}
+.slide:nth-child(5) {
+  background: url('front/assets/img/pic14-min.jpg') no-repeat
+    center top/cover;
+} 
+
+</style>
+<div flex>
+    <div class="slider">
+          <div class="slide current">
+            <div class="content">
+              <h1>{{slides[0].title}}</h1>
+              <p>
+                {{slides[0].description}}
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="content">
+              <h1>{{slides[1].title}}</h1>
+              <p>
+                {{slides[1].description}}
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="content">
+              <h1>{{slides[2].title}}</h1>
+              <p>
+                {{slides[2].description}}
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="content">
+              <h1>{{slides[3].title}}</h1>
+              <p>
+                {{slides[3].description}}
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="content">
+              <h1>{{slides[4].title}}</h1>
+              <p>
+                {{slides[4].description}}
+              </p>
+            </div>
+          </div>
+    </div>
+
+    <div class="buttons">
+      <button id="prev"><i class="fa fa-arrow-left"></i></button>
+      <button id="next"><i class="fa fa-arrow-right"></i></button>
+    </div>
+</div>
+
+
+<div layou="column" flex id="quienes">
+    <div layout="row" layout-align="center center">
+        <h2 class="md-display-1">Quienes Somos</h2>
+        <md-divider md-inset ></md-divider>
+    </div>
+    <div layout="row">
+        <div layout="column" layout-padding="">
+            <p >
+                Ante es una empresa que nace en Chile en el 29 de agosto de 2018, bajo el alero Ante Group, cuyo origen de su fundación se remonta al año 1984 en China en Qingtian, provincia de Zhejiang. Ante Group es un Holding de empresas que se dedican al desarrollo y producción de Medidores Eléctricos Inteligentes, iluminación de bajo consumo, herramientas y artículos e implementos de seguridad, artículos para el hogar, construcción y gestión de parques industriales.
+            </p>
+        </div>
+        <div layout="column" layout-padding="">
+            <p>
+                En Ante Chile entendemos que la clave del éxito está en brindar una armonía entre calidad y precio hacia los demandantes del mercado. Poder cumplir con las expectativas de nuestros clientes de manera responsable es primordial para nuestro equipo humano, es por esto, que nuestra mision va de la mano con el compromiso que adquirimos como empresa, marcar una diferencia que nos permitira crear lazos que perduren en el tiempo con nuestros clientes.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div layou="column" flex id="contacto" md-colors="::{background: 'primary-600'}">
+    
+    <div layout="row" layout-align="center center">
+        <h2 class="md-display-1">Contacto</h2>
+        <md-divider md-inset ></md-divider>
+    </div>
+    <div layout="row">
+        <div layout="column" layout-padding="" layout-align="center center" flex="50">
+            <span class="md-body-2">Oficinas</span>
+            
+                San Rafael
+                Sector Centro
+                Tucupita
+                Estado Delta Amacuro
+            <span class="md-body-2">Teléfonos</span>
+                0287-7210000
+                0287-7218778
+                0414-1234567
+
+        </div>
+        <div layout="column" layout-padding="" layout-align="center center" flex="50">
+            <span class="md-body-2">Nuestras Redes Sociales</span>
+            <p>
+                Facebook
+                Twitter
+                Instagram
+            </p>
+        </div>
+    </div>
+</div>

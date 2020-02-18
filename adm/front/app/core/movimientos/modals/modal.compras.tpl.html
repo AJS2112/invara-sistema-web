@@ -1,0 +1,135 @@
+<style type="text/css">
+	.grid {
+    height: 300px;
+}
+</style>
+<md-dialog aria-label="Cliente" class="_md-transition-in" flex="80" flex-sm="80" flex-xs="100" >
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Selección de Producto</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content">
+
+	    	<h5>Producto</h5>
+		    <div layout="row" layout-xs="column">
+		    	<div flex>
+		            <md-autocomplete flex   
+		              md-selected-item="ctrl.selectedProducto" 
+		              md-search-text="ctrl.searchText"
+		              md-selected-item-change="ctrl.selProducto(producto)" 
+		              md-items="producto in ctrl.querySearch(ctrl.searchText)"
+		              md-item-text="producto.nombre" 
+		              md-min-length="0" 
+		              md-floating-label="Producto"
+		              md-menu-class="autocomplete-custom-template">
+		              
+		              <md-item-template>
+		                  <span class="item-title">
+		                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{producto.nombre}} </span>
+		                  </span>
+
+		                  <span class="item-metadata">
+		                    <span class="item-metastat" >
+		                      <strong md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{producto.codigo}}</strong>
+		                    </span>
+		                  </span>
+		              </md-item-template>
+
+		              <md-not-found>
+		                <span>No se encontraron resultados</span>
+		              </md-not-found>
+		            </md-autocomplete>  
+		      	</div>
+
+				<!-- UND COMPRA -->		
+		      	<md-input-container flex="15" flex-xs="100">
+		        	<label>Unidad Compra</label>
+		          	<md-select ng-model="ctrl.one.id_unidad_compra" flex-xs="100" ng-change="ctrl.selUnidad()">
+			            <md-option ng-repeat="elemento in ctrl.listaUnidades" value="{{elemento.id}}" >
+			                {{elemento.nombre}}
+			            </md-option>
+		          </md-select>
+		      	</md-input-container>
+
+		      	<md-input-container flex="15" flex-xs="100">
+		    		<label>Cantidad</label>
+				    <input formato-numerico type="text" ng-model="ctrl.cantidad_compra" ng-change="ctrl.calcularCantidades('uc')">
+		    	</md-input-container>
+
+				<!-- UND VENTA -->		
+		      	<md-input-container flex="15" flex-xs="100">
+		        	<label>Unidad</label>
+		          	<md-select ng-model="ctrl.one.id_unidad_venta" flex-xs="100" ng-change="ctrl.selUnidad()">
+			            <md-option ng-repeat="elemento in ctrl.listaUnidades" value="{{elemento.id}}" >
+			                {{elemento.nombre}}
+			            </md-option>
+		          </md-select>
+		      	</md-input-container>
+
+		    	<md-input-container flex="15" flex-xs="100">
+		    		<label>Cantidad</label>
+				    <input formato-numerico type="text" ng-model="ctrl.cantidad" ng-change="ctrl.calcularCantidades('uv')">
+		    	</md-input-container>	    	
+
+			</div>
+			
+
+			<div layout="row" layout-xs="column">
+				
+				<div layout="column" flex="60">
+	          	<h5>Costo Factura</h5>
+				<div layout="row" layout-xs="column">
+
+		            <md-input-container class="md-block" >
+		               <input formato-numerico class="align-right"  ng-model="ctrl.one.factura_costo_bruto" type="text" placeholder="Costo Bruto" ng-change="ctrl.calcular('util')">
+		            </md-input-container>
+
+		            <md-input-container class="md-block" >
+		               <input formato-numerico class="align-right"  ng-model="ctrl.one.f_cn" type="text" placeholder="Costo Neto" disabled="true">
+		            </md-input-container>
+
+		            <md-input-container class="md-block" flex="30">
+		               <input formato-numerico class="align-right"  ng-model="ctrl.one.factura_pct_utilidad" type="text" placeholder="% Utilidad" ng-change="ctrl.calcular('util')">
+		            </md-input-container>
+
+		            <md-input-container class="md-block" >
+		               <input formato-numerico class="align-right"  ng-model="ctrl.one.factura_precio_final" type="text" placeholder="Precio Final" ng-change="ctrl.calcular('precio')">
+		            </md-input-container>
+	          	</div>
+
+				
+	          	<h5>Costo Lista</h5>
+	          	<div layout="row" layout-xs="column">
+
+	                <md-input-container class="md-block" >
+	                   <input formato-numerico class="align-right"  ng-model="ctrl.one.lista_costo_bruto" type="text" placeholder="Costo Bruto" ng-change="ctrl.calcular('util')">
+	                </md-input-container>
+
+	                <md-input-container class="md-block" >
+	                   <input formato-numerico class="align-right"  ng-model="ctrl.one.l_cn" type="text" placeholder="Costo Neto" disabled="true">
+	                </md-input-container>       
+
+	                <md-input-container class="md-block" >
+	                   <input formato-numerico class="align-right"  ng-model="ctrl.one.lista_pct_utilidad" type="text" placeholder="% Utilidad" ng-change="ctrl.calcular('util')">
+	                </md-input-container>
+
+	                <md-input-container class="md-block" >
+	                   <input formato-numerico class="align-right"  ng-model="ctrl.one.lista_precio_final" type="text" placeholder="Precio Final" ng-change="ctrl.calcular('precio')">
+	                </md-input-container>
+	          	</div>
+	          	</div>
+
+	          	
+			</div>
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!ctrl.selectedProducto">Seleccionar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

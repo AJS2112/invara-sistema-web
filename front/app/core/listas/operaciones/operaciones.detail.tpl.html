@@ -1,0 +1,72 @@
+<md-dialog aria-label="Cliente" class="_md-transition-in" flex-xs="100" flex="60">
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Listas</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout-xs="column" layout="row">
+	    	
+        <div layout="column" flex="100">
+          <md-input-container class="md-block">
+            <label>TIPO</label>
+              <md-select ng-model="ctrl.one.id_tipo">
+                <md-option ng-repeat="elemento in ctrl.listaTipos" value="{{elemento.id}}" >
+                    {{elemento.nombre}}
+                </md-option>
+              </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>Nombre</label>
+            <input type="text" ng-model="ctrl.one.nombre" required >
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>Nombre Pantalla</label>
+            <input type="text" ng-model="ctrl.one.nombre_display" required >
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>Descrip</label>
+            <input type="text" ng-model="ctrl.one.descrip">
+          </md-input-container>
+          
+          <div layout="row" flex>
+            <md-input-container class="md-block" flex="50">
+              <label>SIGNO INVENTARIO</label>
+                <md-select ng-model="ctrl.one.signo_inventario">
+                  <md-option value="+" >+</md-option>
+                  <md-option value="-" >-</md-option>
+                  <md-option value="N" >N</md-option>
+                  <md-option value="M" >M</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="50">
+              <label>SIGNO CAJA</label>
+                <md-select ng-model="ctrl.one.signo_caja">
+                  <md-option value="+" >+</md-option>
+                  <md-option value="-" >-</md-option>
+                  <md-option value="N" >N</md-option>
+                  <md-option value="M" >M</md-option>
+                </md-select>
+            </md-input-container>          
+          </div>
+
+          <div layout="row" flex>
+            <md-checkbox ng-model="ctrl.one.es_fiscal" aria-label="fiscal">Es fiscal</md-checkbox>
+            <md-checkbox ng-model="ctrl.one.es_autorizado" aria-label="autorizado">Es autorizado</md-checkbox>
+            <md-checkbox ng-model="ctrl.one.es_visible" aria-label="visible">Es visible</md-checkbox>
+          </div>
+        </div>
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!formDetalle.$valid">Guardar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

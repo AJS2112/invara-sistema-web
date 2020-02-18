@@ -1,0 +1,57 @@
+<div layout="row" layout-xs="column">
+	<div layout="column">
+		<!-- REPORTE -->
+		<md-input-container class="md-block" >
+			<label>Reporte</label>
+		  	<md-select ng-model="ctrl.idReporte" ng-change="ctrl.selOptReport()" >
+		  		<md-option value="1">Instrumentos (Resumen)</md-option>
+		  		<md-option value="2">Instrumentos (Detalle)</md-option>
+		  		<md-option value="3">Cuentas (Resumen)</md-option>
+		  		<md-option value="4">Cuentas (Detallado) </md-option>
+		   	</md-select>
+	  	</md-input-container>
+
+		<!-- INSTRUMENTOS -->		
+		<md-input-container class="md-block" ng-show="ctrl.usa_instrumento">
+			<label>Instrumentos de Pago</label>
+		  	<md-select ng-model="ctrl.idInstrumento">
+		  		<!--<md-option value="x">TODOS</md-option>-->
+		        <md-option ng-repeat="elemento in ctrl.listaInstrumentos" value="{{elemento.id}}" ng-selected="$first">
+		            {{elemento.nombre}}
+		        </md-option>
+		   	</md-select>
+	  	</md-input-container>
+
+	  	<!-- CUENTAS -->		
+		<md-input-container class="md-block" ng-show="ctrl.usa_cuenta">
+			<label>Cuentas Bancarias</label>
+		  	<md-select ng-model="ctrl.idCuenta">
+		  		<!--<md-option value="x">TODOS</md-option>-->
+		        <md-option ng-repeat="elemento in ctrl.listaCuentas" value="{{elemento.id}}" ng-selected="$first">
+		            {{elemento.banco_nombre}} ( {{elemento.numero}} )
+		        </md-option>
+		   	</md-select>
+	  	</md-input-container>
+		
+		<div layout="row" ng-show="ctrl.usa_fecha">
+		  	<md-input-container class="md-block" flex-xs="100">
+				<label>Desde</label>									
+				<md-datepicker ng-model="ctrl.desde" ></md-datepicker>
+			</md-input-container>
+
+			<md-input-container class="md-block" flex-xs="100">
+				<label>Hasta</label>									
+				<md-datepicker ng-model="ctrl.hasta" ></md-datepicker>
+			</md-input-container>
+		</div>
+	</div>
+
+</div>
+
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.selectReport()">
+    <md-tooltip md-direction="top">Imprimir</md-tooltip>
+    <span class ="fa fa-print fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

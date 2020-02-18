@@ -1,0 +1,31 @@
+<div layout="row" layout-xs="column">
+  <md-input-container class="md-block">
+      <input type="text"  ng-change="ctrl.filtrar()"  id="txt_filtro" placeholder="Filtro de Busqueda" ng-model="ctrl.filtro">
+  </md-input-container>
+</div>
+
+
+<div id="gridLista" ui-grid="ctrl.gridLista" ui-grid-selection ui-grid-expandable class="grid">
+	<div class="grid-msg-overlay" ng-hide="!ctrl.loading">
+	  <div class="msg">
+	      <span>
+	        Cargando registros...
+	        <i class="fa fa-spinner fa-spin fa-fw fa-lg"></i>
+	      </span>
+	  </div>
+	</div>
+
+	<div class="grid-msg-overlay" ng-hide="ctrl.loading || ctrl.gridLista.data.length">
+	  <div class="msg">
+	      <span>No existen registros disponibles</span>
+	  </div>
+	</div>    
+</div>
+
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.agregar()">
+    <md-tooltip md-direction="top">Agregar</md-tooltip>
+    <span class ="fa fa-plus fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

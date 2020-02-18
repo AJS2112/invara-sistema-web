@@ -1,0 +1,39 @@
+<section layout="row" flex >
+
+	<md-content  layout="column" flex >
+		<!-- BARRA -->
+		<md-toolbar class="md-tall md-hue-3" layout="row" >
+
+			<section layout="column" layout-xs="row" layout-align="center center" layout-padding="" layout-margin="" >
+				<a href="#/home">
+				    <img src="front/assets/img/logo_triven.png"  alt="" width="90px;"/>
+			    </a>			
+			</section>
+
+			<section layout="column" layout-xs="row" flex hide-xs>
+				<h1 class="md-headline">Inversiones ARA C.A.</h1>	
+		      	
+		      	<section layout="row" layout-xs="column" layout-sm="column" layout-align="space-around" layout-wrap >
+			      <md-button ng-click="ctrl.scrollTo('quienes')">Quienes Somos</md-button>
+			      <md-button ng-click="ctrl.goto('menu.catalogo')">Catalogo</md-button>
+			      <md-button ng-click="ctrl.scrollTo('contacto')">Contacto</md-button>
+			    </section>
+			</section>
+
+			<section layout="column" layout-align="center center" show-xs hide-gt-xs>
+				<md-button class="md-icon-button" ng-click="ctrl.showSheet()" aria-label="Toggle Menu" >
+		        	<span class ="fa fa-navicon fa-fw fa-lg " id="md-bot-main" style="font-size:21px;color:#9B9B9B";>
+		        	</span>
+	        	</md-button>
+			</section>
+
+	    </md-toolbar>
+		
+
+		<md-content >
+			<div ui-view layout="column" layout-padding flex></div>	
+		</md-content >
+
+	</md-content >
+
+</section>

@@ -1,0 +1,162 @@
+<style>
+.report-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 250px;
+}
+.report-pagenum:before {
+    content: counter(page);
+}
+
+.report-title  {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1.0em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /*
+  */
+  text-align:center;
+}
+
+.mi-tabla  {
+    border-collapse: collapse;
+    width: 100%;
+}
+/*
+*/
+.report-table table, th, td {
+    border: 0.5px solid dimgray;
+  height: 30px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.codpres tr td{
+    /*border: 0.5px solid dimgray;*/
+  height: 10px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 8px;
+
+}
+
+
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title></title>
+</head>
+<body style="margin-top:0px;margin-left:20px;margin-right:10px;margin-bottom: 0px;">
+	<table class="mi-tabla  report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr > 
+			<td width="20%"> <img src="files/logogob.png" alt="" width="140px;" align="middle"> </td> 
+			<td align="center">
+				<span>Av. Fuerzas Armadas</span><br>
+				<span>RIF: G-200009505-9</span><br>
+				<span>Bosmoca2015@gmail.com</span><br>			
+			</td>
+			<td width="20%"> <img src="files/logo.png" alt="" width="120px;" align="middle"> </td> 		
+		</tr>
+		<tr>
+			<td colspan="3" align="center" height="10px;">BIENES, OBRAS Y SERVICIOS MONAGUENSES. C.A (BOSMOCA)</td> 
+		</tr>	
+	</table>
+
+	<h3 class="report-title" >COMPROBANTE DE PAGO</h3>
+
+
+	<br>
+	<table class="mi-tabla report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr> 
+
+			<td width="70%">
+				<b>Orden de Pago Nro: </b> <span><?php if ($documento)echo $documento["nro_control"] ?></span><br>
+				<b>Fecha: </b><span><?php if ($documento){
+					$time = strtotime($documento["fecha"]);
+					$newformat = date('Y-m-d',$time);
+					echo $newformat;
+					} ?></span><br>
+				<b>Presupuesto Ordinario: </b><span><?php if ($documento)echo $documento["nombre_periodo"] ?></span>
+			</td> 
+			<td>
+				<b> <span style=" font-size: 20px;">Bs. <?php if ($documento)echo  number_format($documento["monto_neto"], 2, ',', '.')  ?> </span></b>
+			</td>
+		</tr>
+	</table>
+
+	<br>
+	<br>
+
+
+	<table class="mi-tabla report-table" cellpadding= 1 cellspacing=0>
+		<tr>
+			<td> <b>PAGUESE A LA ORDEN DE: </b> <?php if ($documento)echo $documento["nombre_bene"] ?></td>
+		</tr>
+<!--
+-->
+		<tr>
+			<td> <b>LA CANTIDAD DE: </b> <?php if ($montoletras)echo $montoletras ?></td>
+		</tr>				
+	</table>
+	<br>
+	<br>
+
+	<table class="mi-tabla">
+		<tr>
+			<td><b>CHEQUE Nº: </b> <?php if ($documento)echo $documento["numero_cheque"] ?> </td>
+			<td><b>BANCO: </b> <?php if ($cuenta)echo $cuenta["nombre_banco"] ?> </td>
+			<td><b>CUENTA Nº: </b> <?php if ($cuenta)echo $cuenta["nro_cuenta"] ?> </td>
+		</tr>
+		<tr align="center" height="200">
+			<td height="200px" valign="top" align="center" colspan="3"></td>
+		</tr>
+	</table>
+
+
+	<br>
+	<br>
+
+
+
+	<div class="report-footer">
+		<table class="mi-tabla  report-table">
+			<tr rowspan="4" height="150px;">
+				<td width="33%" valign="top" align="center" >ELABORADO POR:</td>
+				<td width="33%" valign="top" align="center" >VERIFICADO POR:</td>
+				<td width="33%" valign="top" align="center" >ARCHIVADO POR:</td>
+			</tr>
+			<tr>
+				<td height="100px" valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+			</tr>
+		</table>
+
+		<table border="0" class="mi-tabla  report-table">
+			<tr>
+				<td width="30%" align="center" height="100px" >
+				_____________________<br>
+		 		   RECIBI CONFORME
+				</td>
+				<td width="30%" align="center">
+				_____________________<br>
+		 		   CEDULA DE IDENTIDAD
+				</td>
+				<td width="30%" align="center">
+				_____________________<br>
+		 		   FECHA
+				</td>				
+
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
+

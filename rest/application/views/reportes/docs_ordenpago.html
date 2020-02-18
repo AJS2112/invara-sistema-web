@@ -1,0 +1,207 @@
+<style>
+.report-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 150px;
+}
+.report-pagenum:before {
+    content: counter(page);
+}
+
+.report-title  {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1.0em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /*
+  */
+  text-align:center;
+}
+
+.mi-tabla  {
+    border-collapse: collapse;
+    width: 100%;
+}
+/*
+*/
+.report-table table, th, td {
+    border: 0.5px solid dimgray;
+  height: 30px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.codpres tr td{
+    /*border: 0.5px solid dimgray;*/
+  height: 10px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 8px;
+
+}
+
+
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title></title>
+</head>
+<body style="margin-top:0px;margin-left:20px;margin-right:10px;margin-bottom: 0px;">
+	<table class="mi-tabla  report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr > 
+			<td width="20%"> <img src="files/logogob.png" alt="" width="140px;" align="middle"> </td> 
+			<td align="center">
+				<span>Av. Fuerzas Armadas</span><br>
+				<span>RIF: G-200009505-9</span><br>
+				<span>Bosmoca2015@gmail.com</span><br>			
+			</td>
+			<td width="20%"> <img src="files/logo.png" alt="" width="120px;" align="middle"> </td> 		
+		</tr>
+		<tr>
+			<td colspan="3" align="center" height="10px;">BIENES, OBRAS Y SERVICIOS MONAGUENSES. C.A (BOSMOCA)</td> 
+		</tr>	
+	</table>
+
+	<h3 class="report-title" >ORDEN DE PAGO</h3>
+	<br>
+	<table class="mi-tabla report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr> 
+			<td width="70%">
+			</td>
+
+			<td>
+				<b>Número: </b> <span><?php if ($documento)echo $documento["nro_control"] ?></span><br>
+				<b>Fecha: </b><span><?php if ($documento){
+					$time = strtotime($documento["fecha"]);
+					$newformat = date('Y-m-d',$time);
+					echo $newformat;
+					} ?></span><br>
+				<b>Presupuesto Ordinario: </b><span><?php if ($documento)echo $documento["nombre_periodo"] ?></span>
+			</td> 
+		</tr>
+	</table>
+	<br>
+	<br>
+	<table class="mi-tabla report-table" cellpadding= 1 cellspacing=0>
+		<tr>
+			<td colspan="4"> <b>Beneficiario: </b> <?php if ($beneficiario)echo $beneficiario["nombre"] ?></td>
+		</tr>
+		<tr>
+			<td width="15%"> <b>RIF: </b> <?php if ($beneficiario)echo $beneficiario["rif"] ?></td>
+			<td width="15%"> <b>RNC: </b> <?php if ($beneficiario)echo $beneficiario["rnc"] ?></td>
+			<td width="15%"> <b>TLF: </b> <?php if ($beneficiario)echo $beneficiario["telefono"] ?></td>
+			<td width="55%"> <b>DIRECCIÓN FISCAL: </b> <?php if ($beneficiario)echo $beneficiario["direccion_fiscal"] ?></td>				
+		</tr>
+		<tr>
+			<td colspan="4" height="40" valign="top"> <b>Descripción: </b> <?php if ($documento)echo $documento["concepto_gnrl"] ?></td>
+		</tr>		
+		<tr>
+			<td colspan="4"> <b>Monto en letras: </b> <?php if ($montoletras)echo $montoletras ?></td>
+		</tr>				
+	</table>
+
+	<table class="mi-tabla report-table" cellpadding= 1 cellspacing=0>
+		<tr>
+			<td> <b>Nº Orden de Compra: </b> <?php if ($ordencompra)echo $ordencompra["nro_control"] ?></td>	
+			<td> <b>Nº Factura: </b> <?php if ($ordencompra)echo $ordencompra["doc_recibido_numero"] ?></td>
+			<td> <b>Nº Control: </b> <?php if ($ordencompra)echo $ordencompra["doc_recibido_nrocontrol"] ?></td>			
+			<td> <b>Fecha de Emisión: </b> <?php if ($ordencompra)echo $ordencompra["doc_recibido_fecha"] ?></td>					
+		</tr>				
+	</table>
+
+	<table class="mi-tabla">
+		<tr>
+			<td colspan="3" align="center">IMPUTACIÓN PRESUPUESTARIA</td>
+		</tr>
+		<tr align="center" >
+			<td width="10%">PARTIDA</td>
+			<td width="70%">DESCRIPCIÓN</td>
+			<td width="20%">MONTO</td>
+		</tr>
+
+		<?php for($i=0, $ni=count($codpres); $i < $ni; $i++){ ?>
+			<tr rowspan="4" >
+				<td valign="center" align="right"><?php if ($codpres)echo $codpres[$i]["cod_cuenta"] ?></td>
+				<td valign="center" align="left" ><?php if ($codpres)echo $codpres[$i]["nomb_cuenta"] ?></td>
+				<td valign="center" align="right" ><?php if ($codpres)echo  number_format($codpres[$i]["monto"], 2, ',', '.') ?></td>
+			</tr>
+		<?php } ?>
+
+	</table>
+
+	<table class="mi-tabla codpres">
+		<tr>
+			<td colspan="3" align="center">RETENCIONES</td>
+		</tr>
+		<tr align="center" >
+			<td width="30%">TIPO</td>
+			<td width="30%">PORCENTAJE (%)</td>
+			<td width="40%">MONTO</td>
+		</tr>
+
+		<?php for($i=0, $ni=count($retenciones); $i < $ni; $i++){ ?>
+			<tr rowspan="4" >
+				<td valign="center" align="center"><?php if ($retenciones)echo $retenciones[$i]["nomb_tipo_ret"] ?></td>
+				<td valign="center" align="center" ><?php if ($retenciones)echo $retenciones[$i]["pct_retencion"] ?></td>
+				<td valign="center" align="right" ><?php if ($retenciones)echo  number_format($retenciones[$i]["monto"], 2, ',', '.') ?></td>
+			</tr>
+		<?php } ?>
+
+	</table>	
+
+	<table class="mi-tabla report-table" cellpadding= 0 cellspacing=0>
+		<tr>
+			<td align="right">SUBTOTAL</td>				
+			<td width="30%" align="right"><?php if ($documento)echo  number_format($documento["monto_bruto"], 2, ',', '.') ?></td>
+		</tr>
+		<tr>
+			<td align="right">TOTAL ANTICIPOS</td>				
+			<td width="30%" align="right"><?php if ($documento)echo  number_format($documento["monto_anticipo"], 2, ',', '.') ?></td>
+		</tr>
+		<tr>
+			<td align="right">TOTAL RETENCIONES</td>				
+			<td width="30%" align="right"><?php if ($documento)echo  number_format($documento["monto_retenido"], 2, ',', '.') ?></td>
+		</tr>
+		<tr>
+			<td align="right">TOTAL NETO A PAGAR</td>				
+			<td width="30%" align="right"><?php if ($documento)echo  number_format($documento["monto_neto"], 2, ',', '.') ?></td>
+		</tr>	
+
+
+	</table>
+
+	<br>
+	<br>
+
+	<div class="report-footer">
+		<table class="mi-tabla  report-table">
+			<tr rowspan="4" height="150px;">
+				<td width="25%" valign="top" align="center" >EJECUCION PRESUPUESTARIA</td>
+				<td width="25%" valign="top" align="center" >DIVISION DE ADMINISTRACION Y FINANZAS</td>
+				<td width="25%" valign="top" align="center" >PRESIDENCIA</td>
+				<td width="25%" valign="top" align="center" >BENEFICIARIO</td>
+			</tr>
+			<tr>
+				<td height="100px" valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+			</tr>
+			<tr>
+				<td >FECHA</td>
+				<td >FECHA</td>
+				<td >FECHA</td>
+				<td >FECHA</td>
+			</tr>		
+		</table>
+	</div>
+
+</body>
+</html>
+

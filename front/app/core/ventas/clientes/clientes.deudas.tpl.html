@@ -1,0 +1,38 @@
+<div layout="row" layout-xs="column" layout-align="space-between">
+  <div layout="column">
+    <span> {{ctrl.one.nombre}}</span>
+    <span> {{ctrl.one.rif}}</span>
+  </div>
+  <div layout="column" >
+    <div layout="row" layout-align="space-between">
+      <b>Total Documentos: </b> <span>{{ctrl.one.total_moneda | currency:""}}</span>
+    </div>
+    <div layout="row" layout-align="space-between">
+      <b>Total Deuda:</b> <span> {{ctrl.one.deuda_moneda | currency:""}}</span>
+    </div>
+  </div>
+</div>
+
+<div id="gridLista" ui-grid="ctrl.gridOptions" ui-grid-selection ui-grid-expandable class="grid">
+  <div class="grid-msg-overlay" ng-hide="!ctrl.loading">
+    <div class="msg">
+        <span>
+          Cargando registros...
+          <i class="fa fa-spinner fa-spin fa-fw fa-lg"></i>
+        </span>
+    </div>
+  </div>
+
+  <div class="grid-msg-overlay" ng-hide="ctrl.loading || ctrl.gridOptions.data.length">
+    <div class="msg">
+        <span>No existen registros disponibles</span>
+    </div>
+  </div>    
+</div>
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.agregar()">
+    <md-tooltip md-direction="top">Agregar</md-tooltip>
+    <span class ="fa fa-plus fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

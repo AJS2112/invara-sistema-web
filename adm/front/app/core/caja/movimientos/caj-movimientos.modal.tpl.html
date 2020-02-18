@@ -1,0 +1,126 @@
+<style type="text/css">
+	.grid {
+	    height: 300px;
+	}
+	table, tr, td {
+		border:0px;
+		font-family: Roboto, arial;
+		font-size:	16px;
+	}
+</style>
+<md-dialog aria-label="Selección de producto" class="_md-transition-in" flex="60" flex-sm="80" flex-xs="100" >
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Selección de Instrumentos de Pago</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content" layout="row">
+		    <div layout="column" flex="30" flex-xs="100" >
+		    	<div layout="row">
+			    	<md-input-container class="md-block" flex-xs="100" >
+		              <label>Moneda</label>
+		              <md-select ng-model="$parent.id_moneda" class="md-no-underline" ng-change="ctrl.seleccionaCotizacion()">
+		                <md-option ng-repeat="item in ctrl.listaCotizacion" value="{{item.id_moneda}}" >
+		                  {{item.moneda_descrip}}
+		                </md-option>
+		              </md-select>
+		            </md-input-container>
+
+					<md-input-container flex-xs="100">
+			    		<label>Tasa</label>
+					    <input formato-numerico type="text" ng-model="ctrl.factor" ng-change="ctrl.calcularFactor()">
+			    	</md-input-container>		    		
+		    	</div>
+
+				<!-- INSTRUMENTOS -->		
+		      	<md-input-container flex="15" flex-xs="100">
+		        	<label>Instrumento de pago</label>
+		          	<md-select ng-model="ctrl.id_instrumento" flex-xs="100" ng-change="ctrl.selInstrumento()">
+			            <md-option ng-repeat="elemento in ctrl.listaInstrumentos" value="{{elemento.id}}" ng-selected="$first">
+			                {{elemento.nombre}}
+			            </md-option>
+		          </md-select>
+		      	</md-input-container>
+
+		    	<md-input-container flex="15" flex-xs="100">
+		    		<label>Monto</label>
+				    <input formato-numerico type="text" ng-model="ctrl.monto">
+		    	</md-input-container>
+
+		    	<!-- BANCOS -->		
+		      	<md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.bancos_visible">
+		        	<label>Banco</label>
+		          	<md-select ng-model="ctrl.id_banco" flex-xs="100">
+			            <md-option ng-repeat="elemento in ctrl.listaBancos" value="{{elemento.id}}" ng-selected="$first">
+			                {{elemento.nombre}}
+			            </md-option>
+		          </md-select>
+		      	</md-input-container>	  
+
+		      	<!-- CUENTAS BANCARIAS -->		
+		      	<md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.cuentas_visible">
+		        	<label>Cuenta bancaria</label>
+		          	<md-select ng-model="ctrl.id_cuenta" flex-xs="100">
+			            <md-option ng-repeat="elemento in ctrl.listaCuentas" value="{{elemento.id}}" ng-selected="$first">
+			                {{elemento.banco_nombre}} ({{elemento.numero}})
+			            </md-option>
+		          </md-select>
+		      	</md-input-container>
+
+		      	<md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.nro_operacion_visible">
+		    		<label>Nro Operación</label>
+				    <input type="text" ng-model="ctrl.nro_operacion">
+		    	</md-input-container>
+
+		    	<md-button aria-label="Agregar" class="md-fab md-raised md-mini" ng-click="ctrl.addInstrumento()" ng-disabled="ctrl.pagoTotal">
+	            	<md-tooltip md-direction="top" md-autohide="true">
+	              		Agregar
+	            	</md-tooltip>
+					<span class ="fa fa-plus fa-1x" ></span>
+	      		</md-button>    	
+			</div>
+
+			<div  flex="5" flex-xs="100" ></div>
+
+		    <div layout="column" flex>
+		    	<div>
+					<table width="100%">
+					  <tr align=left >
+					  	<td width="60%" height="30px;" style="color:blue"><b>Total Documento</b></td>
+					  	<td width="35%" align="right" style="color:blue">{{ctrl.totales.documento | currency:""}}</td>
+					  	<td width="5%" align="right"></td>
+					  </tr>
+
+					  <tr align=left>
+					  	<td width="60%" height="30px;" style="color:green">Total Seleccionado</td>
+					  	<td width="35%" align="right" style="color:green">{{ctrl.totales.seleccionado | currency:""}}</td>
+					  	<td width="5%" align="right"></td>
+					  </tr>
+
+					  <tr align=left>
+					  	<td width="60%" height="30px;" style="color:red">Resta</td>
+					  	<td width="35%" align="right" style="color:red">{{ctrl.totales.resta | currency:""}}</td>
+					  	<td width="5%" align="right"></td>
+					  </tr>
+					</table>
+					</br>
+					<table border="0" width="100%"  cellpadding="0" cellspacing="0">
+					  <tr ng-repeat="selObj in ctrl.seleccionPago">
+					    <td width="60%" height="50px;">{{selObj.instrumento_nombre}}</td>
+					    <td width="35%" align="right">{{selObj.monto_moneda | currency:""}}</td>
+					    <td width="5%" align="right"><a href="javascript:void(0);" ng-click="ctrl.delInstrumento(selObj)" ><i class="fa fa-times linkDelete" aria-hidden="true" ></i></a></td>				
+					  </tr>
+					</table>
+				</div>
+			</div>			
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="ctrl.totales.resta && ctrl.padre=='venta'">Seleccionar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

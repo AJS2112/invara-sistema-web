@@ -1,0 +1,263 @@
+<style>
+.report-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 100px;
+
+  height: 20px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+}
+.report-pagenum:before {
+    content: counter(page);
+}
+
+.report-title  {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1.0em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /*
+  */
+  text-align:center;
+}
+
+.mi-tabla  {
+    border-collapse: collapse;
+    width: 100%;
+}
+/*
+*/
+.report-table table, th, td {
+  border: 0.5px solid dimgray;
+  height: 30px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.doc-header tr td{
+    /*border: 0.5px solid dimgray;*/
+  height: 20px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+
+}
+.articulo {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 9px;
+}
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<title></title>
+</head>
+<body style="margin-top:0px;margin-left:20px;margin-right:10px;margin-bottom: 0px;">
+
+	<table class="mi-tabla" border="0" cellpadding= 0 cellspacing=0  width="100%" >
+		<tr > 
+			<td align="center"><b style="font-size: 16px"><?php if ($documento)echo $agente["nombre"] ?></b></td>
+		</tr>
+		<tr > 
+			<td align="center"><b style="font-size: 16px"><?php if ($documento)echo $agente["rif"] ?></b></td>
+		</tr>
+		<tr > 
+			<td align="center"><span style="font-size: 16px">COMPROBANTE DE RETENCIÓN DEL IMPUESTO AL VALOR AGREGADO</span></td>
+		</tr>		
+	</table>
+
+	<br>
+	<p class="articulo">
+		(Ley IVA - Art 11. Gaceta Oficial 6.152 Extraordinario. "Serán responsables del pago de impuesto, en calidad de agentes de retención, quienes por sus funciones públicas o por razón de sus actividades privadas intervengan en operaciones gavadas con el impuesto establecido en esta Ley")
+	</p>
+
+	<br>
+	<br>
+	<table class="mi-tabla doc-header" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr> 
+			<td width="10%"><b>Ciudad: </b></td>
+			<td width="40%">TUCUPITA</td>
+			<td width="10%"><b>Nº Comprobante:</b></td>
+			<td width="40%"><?php if ($documento)echo $documento["anio"].$documento["mes"].$documento["comprobante"] ?></td>									
+		</tr>
+		<tr> 
+			<td width="10%"><b>Fecha de Emisión: </b></td>
+			<td width="40%"><?php 
+				if ($documento){
+					$time = strtotime($documento["fecha_emision"]);
+					$newformat = date('d-m-Y',$time);
+					echo $newformat;
+				}
+			?></td>
+			<td width="10%"><b>Período Fiscal:</b></td>
+			<td width="40%"> Año: <?php if ($documento)echo $documento["anio"] ?> / Mes: <?php if ($documento)echo $documento["mes"] ?> </td>									
+		</tr>
+		<tr> 
+			<td width="10%"></td>
+			<td width="40%" ><b>DATOS DEL AGENTE DE RETENCION </b></td>
+			<td width="10%"></td>
+			<td width="40%" ><b>DATOS DEL BENEFICIARIO </b></td>
+		</tr>
+		<tr> 
+			<td width="10%"><b>Nombre o Razón Social: </b></td>
+			<td width="40%"><?php if ($agente)echo $agente["nombre"] ?></td>
+			<td width="10%"><b>Nombre o Razón Social:</b></td>
+			<td width="40%"><?php if ($documento)echo $documento["beneficiario_nombre"] ?></td>									
+		</tr>
+		<tr> 
+			<td width="10%"><b>RIF: </b></td>
+			<td width="40%"><?php if ($agente)echo $agente["rif"] ?></td>
+			<td width="10%"><b>RIF:</b></td>
+			<td width="40%"><?php if ($documento)echo $documento["beneficiario_rif"] ?></td>									
+		</tr>
+		<tr> 
+			<td width="10%"><b>Dirección: </b></td>
+			<td width="40%"><?php if ($agente)echo $agente["direccion"] ?></td>
+			<td width="10%"><b>Dirección:</b></td>
+			<td width="40%"><?php if ($documento)echo $documento["beneficiario_direccion"] ?></td>									
+		</tr>
+		<tr> 
+			<td width="10%"><b>Teléfonos: </b></td>
+			<td width="40%"><?php if ($agente)echo $agente["telefonos"] ?></td>
+			<td width="10%"><b>Teléfonos:</b></td>
+			<td width="40%"><?php if ($documento)echo $documento["beneficiario_telefonos"] ?></td>									
+		</tr>				
+
+	</table>
+	<br>
+	<br>
+	<table class="mi-tabla report-table" cellpadding= "2" cellspacing=0>
+		<tr align="center">
+			<td colspan="8" align="center">DATOS DE LA RETENCIÓN</td>
+			<td colspan="6" align="center">COMPRAS INTERNAS O IMPORTACIONES</td>			
+		</tr>
+		<tr align="center">
+			<td width="2%">Nº</td>
+			<td width="6%">Fecha Doc.</td>
+			<td width="7%">Nº Factura</td>
+			<td width="7%">Nº Control</td>
+			<td width="7%">Nº Nota Débito</td>
+			<td width="7%">Nº Nota Crédito</td>				
+			<td width="7%">Tipo de Transacción</td>
+			<td width="7%">Nº Fact. Afectada</td>
+
+			<td width="9%">Total Compras</td>
+			<td width="9%">Sin derecho a crédito</td>				
+			<td width="9%">Base Imponible</td>
+			<td width="5%">% Alic.</td>
+			<td width="9%">Impuesto IVA</td>
+			<td width="9%">IVA Retenido</td>
+
+		</tr>
+
+		<?php 
+			$totTotalCompras=0;
+			$totSinCredito=0;
+			$totBaseImponible=0;
+			$totImpuestoIVA=0;
+			$totIVARetenido=0;
+
+			for($i=0, $ni=count($compras); $i < $ni; $i++){ 
+		?>
+			<tr>
+				<td height="25px;"><?php if ($compras)echo $i+1 ?></td>
+				<td ><?php
+					if ($compras[$i]){
+						$time = strtotime($compras[$i]["fecha_documento"]);
+						$newformat = date('d-m-Y',$time);
+						echo $newformat;
+					}
+				?></td>
+
+				<td ><?php if ($compras[$i]["id_tipodocumento"]==12)echo $compras[$i]["nro_documento"] ?></td>
+				<td ><?php if ($compras)echo $compras[$i]["nro_control"] ?></td>
+				<td ><?php if ($compras[$i]["id_tipodocumento"]==13)echo $compras[$i]["nro_documento"] ?></td>
+				<td ><?php if ($compras[$i]["id_tipodocumento"]==14)echo $compras[$i]["nro_documento"] ?></td>
+
+				<td >01 Registro</td>
+				<td ><?php if ($compras[$i]["nro_factura_afectada"]!=0)echo $compras[$i]["nro_factura_afectada"] ?></td>				
+
+				<td align="right" >
+					<?php 
+						$totalCompra=0;
+						if ($compras){
+							$totalCompra=$compras[$i]["sin_credito"]+$compras[$i]["base_imponible"]+$compras[$i]["monto_iva"];
+						}
+						echo  number_format($totalCompra, 2, ',', '.') 
+					?>
+				</td>
+				<td align="right" >
+					<?php if ($compras)echo  number_format($compras[$i]["sin_credito"], 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php if ($compras)echo  number_format($compras[$i]["base_imponible"], 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php if ($compras)echo  number_format($compras[$i]["pct_alicuota"], 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php if ($compras)echo  number_format($compras[$i]["monto_iva"], 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php if ($compras)echo  number_format($compras[$i]["monto_retenido"], 2, ',', '.') ?>
+				</td>																		
+			</tr>
+		<?php 
+			$totTotalCompras+=$totalCompra;
+			$totSinCredito+=$compras[$i]["sin_credito"];
+			$totBaseImponible+=$compras[$i]["base_imponible"];
+			$totImpuestoIVA+=$compras[$i]["monto_iva"];
+			$totIVARetenido+=$compras[$i]["monto_retenido"];	
+
+		} ?>
+
+			<tr>
+				<td height="25px;" colspan="8">Totales</td>
+
+				<td align="right" >
+					<?php echo  number_format($totTotalCompras, 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php echo  number_format($totSinCredito, 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php echo  number_format($totBaseImponible, 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+				</td>
+				<td align="right" >
+					<?php echo  number_format($totImpuestoIVA, 2, ',', '.') ?>
+				</td>
+				<td align="right" >
+					<?php echo  number_format($totIVARetenido, 2, ',', '.') ?>
+				</td>																		
+			</tr>
+
+	
+	</table>
+
+	<br>
+	<br>
+
+	
+	<div class="report-footer">
+		<table class="mi-tabla" border="0" cellpadding= 0 cellspacing=0  width="100%" >
+			<tr > 
+				<td align="center" width="50%">Firma y Sello <br> Agente Retención</td>
+				<td align="center" width="50%">Firma Recibido</td>
+			</tr>		
+		</table>
+	</div>
+<!--
+-->
+
+</body>
+</html>
+

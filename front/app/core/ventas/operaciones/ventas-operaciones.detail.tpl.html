@@ -1,0 +1,145 @@
+<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	
+	<!-- DOCUMENTO -->
+	<div layout="row" layout-xs="column">				
+		<div layout="row" flex="40" flex-xs="100">
+	        <md-autocomplete flex required
+	          md-selected-item="ctrl.selectedCliente" 
+	          md-search-text="ctrl.searchText"
+	          md-selected-item-change="ctrl.seleccionarCliente(cliente)" 
+	          md-items="cliente in ctrl.querySearch(ctrl.searchText)"
+	          md-item-text="cliente.nombre" 
+	          md-min-length="1" 
+	          md-floating-label="Nombre/Razón Social"
+	          md-menu-class="autocomplete-custom-template">
+	          
+	          <md-item-template>
+	              <span class="item-title">
+	                <span md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{cliente.nombre}} </span>
+	              </span>
+
+	              <span class="item-metadata">
+	                <span class="item-metastat" >
+	                  <strong md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{cliente.rif}}</strong>
+	                </span>
+	              </span>
+	          </md-item-template>
+
+	          <md-not-found>
+	            <div ng-click="ctrl.modalCliente($event,0)" >
+	                <span class ="fa fa-plus fx-fw"></span>Agregar nuevo
+    	       	</div>
+	          </md-not-found>
+	        </md-autocomplete>  
+
+	        <div>
+	        	<md-button class="md-fab md-mini md-primary" aria-label="Editar" ng-click="ctrl.modalCliente($event,ctrl.selectedCliente.id)" ng-show="ctrl.selectedCliente" >
+		          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+		            Editar Cliente
+		          </md-tooltip>
+		          <span class ="fa fa-edit fx-fw"></span>
+		        </md-button>
+	        </div>
+	  	</div>
+
+		<md-input-container class="md-block" flex="15" flex-xs="100">
+			<label>Fecha</label>									
+			<md-datepicker ng-model="ctrl.one.fecha" ></md-datepicker>
+		</md-input-container>
+	</div>
+
+	<!-- LISTA -->
+	<md-toolbar class="md-primary ">
+		<div class="md-toolbar-tools">
+	       	<h5>
+	          <span>({{ctrl.totales.items}}) Total: 
+	          	<span >{{ctrl.totales.total_moneda | currency:""}}</span>
+	          </span>
+	        </h5>
+	        <span flex></span>
+
+	        <md-button class="md-fab md-mini md-accent md-raised" aria-label="Eliminar" ng-click="ctrl.delVenta($event)" ng-show="ctrl.cntSel>0">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Eliminar
+	          </md-tooltip>
+	          <span class ="fa fa-remove fx-fw"></span>
+	        </md-button>
+
+	        <md-button class="md-fab md-mini md-accent md-raised" aria-label="Editar" ng-click="ctrl.selVenta($event)" ng-show="ctrl.cntSel>0">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Seleccionar
+	          </md-tooltip>
+	          <span class ="fa fa-edit fx-fw"></span>
+	        </md-button>
+
+	        <md-button class="md-fab md-mini md-accent md-raised" aria-label="Agregar" ng-click="ctrl.addVenta($event)" ng-show="ctrl.selectedCliente">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Agregar
+	          </md-tooltip>
+	          <span class ="fa fa-plus fx-fw"></span>
+	        </md-button>
+
+	   	</div>
+	</md-toolbar>
+
+	<div id="gridLista" ui-grid="ctrl.gridLista" ui-grid-selection  class="grid">
+	  <div class="grid-msg-overlay" ng-hide="!ctrl.loading">
+	    <div class="msg">
+	        <span>
+	          Cargando registros...
+	          <i class="fa fa-spinner fa-spin fa-fw fa-lg"></i>
+	        </span>
+	    </div>
+	  </div>
+
+	  <div class="grid-msg-overlay" ng-hide="ctrl.loading || ctrl.gridLista.data.length">
+	    <div class="msg">
+	        <span>No existen registros disponibles</span>
+	    </div>
+	  </div>    
+	</div>
+
+
+	<!--
+	-->
+
+	<!-- BUTTONS -->
+	<!--
+	-->
+    <md-content>
+		<md-fab-speed-dial md-direction="left" class="md-scale md-fab-bottom-right md-fab " style="position:fixed !important;"  >
+	      <md-fab-trigger>
+	        <md-button aria-label="menu" class="md-fab md-accent">
+	        	<md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
+	           	<span class ="fa fa-navicon fa-fw fa-lg"></span>
+	        </md-button>
+	      </md-fab-trigger>
+
+	      	<md-fab-actions>
+	          <md-button aria-label="Guardar" class="md-fab md-raised md-mini" ng-click="ctrl.guardar()" 
+	          			ng-disabled="ctrl.seGuarda(formDetalle.$valid)==false || ctrl.guarPresionado==true">
+	        	<md-tooltip md-direction="top" md-visible="tooltipVisible">Guardar</md-tooltip>
+	           	<span class ="fa fa-save fa-fw fa-lg"></span>
+	          </md-button>
+
+	          <md-button aria-label="Anular" class="md-fab md-raised md-mini" ng-click="ctrl.anular($event)" ng-disabled="ctrl.one.id_status!=1" ng-hide="!ctrl.one.id">
+	        	<md-tooltip md-direction="top" md-visible="tooltipVisible">Anular</md-tooltip>
+	           	<span class ="fa fa-times fa-fw fa-lg"></span>
+	          </md-button>
+
+	          <md-button aria-label="Imprimir" class="md-fab md-raised md-mini" ng-click="ctrl.imprimir($event)" ng-disabled="ctrl.one.id_status!=1" ng-hide="!ctrl.one.id">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible">Imprimir</md-tooltip>
+	            <span class ="fa fa-print fa-fw fa-lg"></span>
+	          </md-button>
+
+	          <md-button aria-label="Pagar" class="md-fab md-raised md-mini" ng-click="ctrl.pagar($event)" 
+	          				ng-disabled="!formDetalle.$valid || !ctrl.full || !ctrl.totales.items" 
+	          				ng-hide="ctrl.tipoOperacion.signo_caja=='N'">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible">Pagar</md-tooltip>
+	            <span class ="fa fa-money fa-fw fa-lg"></span>
+	          </md-button>	
+
+	   		</md-fab-actions>
+    	</md-fab-speed-dial>
+	</md-content>
+</form>

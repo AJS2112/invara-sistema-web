@@ -1,0 +1,36 @@
+<section layout="row" flex >
+	<md-content  layout="column" flex >
+		<md-toolbar>
+	   		<div layout="row" layout-align="space-between center" class="md-toolbar-tools" >
+	   			<div layout ="row" layout-align="start center" >
+				   	<md-button class="md-icon-button" ng-click="ctrl.goBack()" aria-label="Toggle Menu">
+			          <span class ="fa fa-arrow-left fa-fw fa-lg"></span>
+			        </md-button>
+
+			       	<h2 class="md-toolbar-item md-breadcrumb md-headline">
+			            <span class="md-breadcrumb-page" ng-if="$parent.appSeccion">
+			             	{{$parent.appSeccion}}
+			           	</span>
+			       	</h2>
+			    </div>
+				
+				<div layout ="row" layout-align="end center" >
+					<!--
+			       	<md-switch ng-model="$parent.swMoneda" aria-label="Switch" ng-true-value="'BsS'" ng-false-value="'$'" ng-change="ctrl.cambioMoneda()">
+						{{$parent.swMoneda}}
+					</md-switch>
+					-->
+					<md-select ng-if="!ctrl.empresa.es_modo_fiscal" ng-model="$parent.id_moneda" class="md-no-underline" ng-change="ctrl.seleccionaCotizacion()">
+						<md-option ng-repeat="item in ctrl.listaCotizacion" value="{{item.id_moneda}}" >
+							{{item.moneda_descrip}}
+						</md-option>
+			        </md-select>
+				</div>
+		    </div>
+		</md-toolbar>
+
+		<md-content >
+			<div ui-view layout="column" layout-padding flex></div>	
+		</md-content >
+	</md-content>
+</section>

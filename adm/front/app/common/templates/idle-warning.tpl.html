@@ -1,0 +1,17 @@
+<md-dialog aria-label="Warning" class="flex-50 _md-transition-in" >
+	<md-content>
+	    <md-toolbar class="md-warn">
+	      <div class="md-toolbar-tools" layout-align="center center">
+	        <span flex="100">Usuario Inactivo</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content >
+	        <div layout="row" layout-align="center center" class="md-dialog-content md-padding" style="height: 150px" >
+		        <div idle-countdown="countdown" >
+		        	<label>Su sesión expirará en {{countdown}} </label>
+			   	</div>
+			</div>
+	    </md-dialog-content>
+	</md-content>
+</md-dialog>

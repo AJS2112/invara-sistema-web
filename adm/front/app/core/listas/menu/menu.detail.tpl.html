@@ -1,0 +1,86 @@
+<!--
+	<p><label style="font-size: 75%;">Tipo</label></p>
+-->
+<md-dialog aria-label="Menu" class="_md-transition-in" flex-xs="90" flex-gt-sm="60">
+	<form name="formMenu" ng-submit="formMenu.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">{{ctrl.seccion[0].nombre}}</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout-xs="column" layout="row">
+			<div flex-xs flex-gt-xs="100" layout="column">
+
+				<div layout="row">
+					<div>
+						<md-input-container class="md-block">
+							<label>Padre</label>									
+						   	<input ng-model="ctrl.padreNombre" class="md-no-underline" ng-disabled="true" type="text" placeholder="Nombre">
+						</md-input-container>
+					</div>
+
+					<div>
+						<md-input-container class="md-block" flex="100">
+							<label>Tipo</label>									
+						  	<md-select ng-model="ctrl.one.id_tipo" placeholder="Tipo" class="md-no-underline">
+							    <md-option  ng-value="1">Heading</md-option>
+							    <md-option  ng-value="2">Toggle</md-option>          
+							    <md-option  ng-value="3">Link</md-option>          
+							    <md-option  ng-value="4">Action</md-option>          				    				    
+						  	</md-select>
+						</md-input-container>
+					</div>
+
+				</div>
+
+				<div layout="row">
+					<md-input-container class="md-block" flex="100">
+					   <input ng-model="ctrl.one.nombre" type="text" placeholder="Nombre">
+					</md-input-container>
+				</div>
+
+				<div layout="row">
+					<md-input-container class="md-block" flex="100">
+					   <input ng-model="ctrl.one.descrip" type="text" placeholder="Descripción">
+					</md-input-container>
+				</div>
+
+				<div layout="row">
+					<md-input-container class="md-block" flex="100">
+					   <input ng-model="ctrl.one.trigger" type="text" placeholder="Trigger">
+					</md-input-container>
+				</div>				
+
+				<div layout="row">
+					<md-input-container class="md-block" flex="100">
+					   <input ng-model="ctrl.one.orden_pos" type="text" placeholder="Orden">
+					</md-input-container>
+				</div>
+
+				<div layout="row">
+					<md-input-container flex="100">
+			          <md-select ng-model="ctrl.one.icono" aria-label="icono">
+						<md-optgroup ng-repeat="nombreGrupo in ctrl.iconosGrupos" label="{{nombreGrupo}}" aria-label="{{nombreGrupo}}">
+				            <md-option ng-repeat="icono in ctrl.iconos | filter: {grupo: nombreGrupo}" ng-value="icono.clase" >
+				              	<span class ="{{icono.clase}}" ></span> {{icono.titulo}} ({{icono.clase}})
+				            </md-option>
+				       	</md-optgroup>
+			          </md-select>
+			        </md-input-container>					
+				</div>				
+
+				<div layout="row">
+					<md-input-container class="md-block" flex="100">
+					   <input ng-model="ctrl.one.tooltip" type="text" placeholder="Tooltip">
+					</md-input-container>
+				</div>				
+			</div>
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button>  
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!formMenu.$valid">Guardar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

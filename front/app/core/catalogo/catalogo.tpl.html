@@ -1,0 +1,39 @@
+<div layout="row" layout-xs="column" layout-align="space-between">
+	<span class="md-display-2">Catalogo de Productos</span>
+	<!-- MONEDA -->
+	<md-select ng-model="ctrl.id_moneda" class="md-no-underline" ng-change="ctrl.seleccionaCotizacion()" aria-label="cotizacion">
+		<md-option ng-repeat="item in ctrl.listaCotizacion" value="{{item.id_moneda}}" >
+			<span class="md-headline">{{item.moneda_descrip}}</span>
+		</md-option>
+	</md-select>
+</div>
+
+<md-content layout-padding>
+	<md-grid-list
+		md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-lg="5" md-cols-gt-lg="5"
+	   	md-row-height="300px"
+	   	md-gutter-xs="14px" md-gutter-sm="14px" md-gutter-md="18px" md-gutter-lg="18px" md-gutter-gt-lg="12px">
+
+	  	<md-grid-tile ng-repeat="producto in ctrl.productos" md-colspan="1" md-rowspan="1">
+
+		  	<md-card style="height: 300px; width: 300px" >
+
+		  		<div layout-align="center center" >
+			    	<img ng-src="{{ctrl.myUrl}}{{producto.imagen}}" alt="Washed Out" style="height: 170px; width: 300px;">
+			    </div>
+
+				<div layout="column" layout-align="space-between"  style="height: 130px; ">
+					<div  layout-padding>
+					  	<span class="md-body-1">{{producto.nombre_web}}</span>
+					</div>
+	
+					<div  layout-padding>
+					  	<span class="md-title">{{ctrl.cotizacion.moneda_descrip}} {{producto.precio_moneda | currency:""}}</span>
+					</div>
+				</div>			
+
+			</md-card>
+		</md-grid-tile>
+
+	</md-grid-list>
+</md-card-content>

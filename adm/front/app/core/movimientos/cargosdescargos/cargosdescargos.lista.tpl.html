@@ -1,0 +1,26 @@
+<div  ng-show="!ctrl.full">
+  	<md-progress-linear md-mode="indeterminate"></md-progress-linear>
+</div>
+<div layout="row" layout-xs="column">
+  <md-input-container class="md-block">
+      <input type="text"  ng-change="ctrl.filtrar()"  id="txt_filtro" placeholder="Filtro de Busqueda" ng-model="ctrl.filtro">
+  </md-input-container>
+
+	<!-- TIPO -->		
+	<md-input-container flex-xs="100">
+		<label>Tipo</label>
+		<md-select ng-model="ctrl.id_tipo" ng-change="ctrl.getList()">
+	    <md-option ng-repeat="elemento in ctrl.listaOperaciones" value="{{elemento.id}}" >
+	        {{elemento.nombre}}
+	    </md-option>
+		</md-select>
+	</md-input-container>
+</div>
+
+<div id="gridLista" ui-grid="ctrl.gridOptions" ui-grid-selection ui-grid-expandable  class="grid"></div>
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.agregar()" ng-disabled="!ctrl.id_tipo">
+    <md-tooltip md-direction="top">Agregar</md-tooltip>
+    <span class ="fa fa-plus fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

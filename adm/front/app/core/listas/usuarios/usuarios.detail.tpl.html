@@ -1,0 +1,73 @@
+<md-dialog aria-label="Usuarios" class="_md-transition-in">
+	<form name="formUsuario" ng-submit="formUsuario.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Usuario</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout="row">
+	    	<div layout="column">
+				<md-input-container class="md-block" flex="100">
+				   <input name="logname" ng-model="ctrl.one.logname" type="text" placeholder="Nombre de usuario"
+				     ng-blur="ctrl.checkUserName()" ng-focus="ctrl.cleanValidation()" required ng-minlength="3">
+
+					<div ng-messages="formUsuario.logname.$error" multiple md-auto-hide="false">
+			      		<div ng-message="required">Por favor, introduce un nombre</div>
+			          	<div ng-message="minlength">El nombre debe tener al menos 3 caracteres.</div>
+			        </div>						
+				</md-input-container>
+
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.pass" type="password" placeholder="Contraseña" ng-blur="ctrl.checkPass()" required>
+				</md-input-container>
+
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.passcheck" type="password" placeholder="Confirma la contraseña" ng-blur="ctrl.checkPass()"  required>
+
+					<div ng-if="!ctrl.passChecked " style="color:red; font-size: 12px">Las constraseñas no coinciden.</div>
+				</md-input-container>
+
+	    	</div>
+
+			<div flex="5" hide-xs hide-sm>
+		      <!-- Spacer -->
+		    </div>
+
+	    	<div layout="column">
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.nombre" type="text" placeholder="Nombre y Apellido" required>
+				</md-input-container>
+
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.cedula" type="text" placeholder="Cédula">
+				</md-input-container>
+
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.email" type="email" placeholder="Correo">
+				</md-input-container>
+
+				<md-input-container class="md-block" flex="100">
+				   <input ng-model="ctrl.one.telefono" type="text" placeholder="Teléfono">
+				</md-input-container>
+
+				<!-- TIPO -->   
+	           	<md-input-container flex="100">
+	                <label>Empresa</label>
+	                  <md-select ng-model="ctrl.one.id_empresa">
+	                    <md-option ng-repeat="elemento in ctrl.listaEmpresas" value="{{elemento.id}}" >
+	                        {{elemento.nombre}}
+	                    </md-option>
+	                </md-select>
+	            </md-input-container>
+	    	</div>
+
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button>  
+			<md-button type="button" class="md-raised md-primary"  ng-click="ctrl.guardar()" ng-disabled="!formUsuario.$valid || !ctrl.passChecked">Guardar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

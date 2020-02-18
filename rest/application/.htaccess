@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /ginit-tareas/rest-api/index.php/$1 [L]
+
+ErrorDocument 404 /mata-asociados/rest/index.php

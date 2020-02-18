@@ -1,0 +1,91 @@
+<md-dialog aria-label="Dialog" class="_md-transition-in" flex="60" flex-sm="60" flex-xs="100" >
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Selección de Producto</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content">
+		    <div layout="row" layout-xs="column">
+		    	<div flex>
+		            <md-autocomplete flex   
+		              md-selected-item="ctrl.selectedProducto" 
+		              md-search-text="ctrl.searchText"
+		              md-selected-item-change="ctrl.selProducto(producto)" 
+		              md-items="producto in ctrl.querySearch(ctrl.searchText)"
+		              md-item-text="producto.nombre" 
+		              md-min-length="0" 
+		              md-floating-label="Producto"
+		              md-menu-class="autocomplete-custom-template">
+		              
+		              <md-item-template>
+		                  <span class="item-title">
+		                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{producto.nombre}} </span>
+		                  </span>
+
+		                  <span class="item-metadata">
+		                    <span class="item-metastat" >
+		                      <strong md-highlight-text="ctrl.searchText" md-highlight-flags="i">{{producto.codigo}}</strong>
+		                    </span>
+		                  </span>
+		              </md-item-template>
+
+		              <md-not-found>
+		                <span>No se encontraron resultados</span>
+		              </md-not-found>
+		            </md-autocomplete>  
+		      	</div>
+
+		    	<md-input-container flex="15" flex-xs="100">
+		    		<label>Unidad</label>
+				    <input type="text" ng-model="ctrl.one.unidad_nombre" disabled="true">
+		    	</md-input-container>
+
+		    	<md-input-container flex="15" flex-xs="100">
+		    		<label>Cantidad</label>
+				    <input formato-numerico type="text" ng-model="ctrl.cantidad" ng-change="ctrl.multiplicar()">
+		    	</md-input-container>		    		    	
+
+		    	<md-input-container flex="15" flex-xs="100">
+		    		<label>Existencia</label>
+				    <input formato-numerico type="text" ng-model="ctrl.one.existencia" disabled="true">
+		    	</md-input-container>		    		    	
+
+			</div>
+
+
+          <div layout="row" layout-xs="column">
+          	<md-input-container class="md-block" flex-xs="100" >
+              <label>Moneda</label>
+              <md-select ng-model="$parent.id_moneda" class="md-no-underline" ng-change="ctrl.seleccionaCotizacion()">
+                <md-option ng-repeat="item in ctrl.listaCotizacion" value="{{item.id_moneda}}" >
+                  {{item.moneda_descrip}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex="25" flex-xs="100" >
+               <input ng-model="ctrl.one.precio_moneda" type="text" formato-numerico class="align-right"  placeholder="Precio"
+                  ng-change="ctrl.calcularPctUtil()">
+            </md-input-container>                    
+
+            <md-input-container class="md-block" flex="25" flex-xs="100" >
+               <input ng-model="ctrl.total_precio_moneda" type="text" formato-numerico class="align-right"  placeholder="Monto"
+                  ng-change="ctrl.dividir()">
+            </md-input-container>                    
+
+            
+          </div>
+			
+
+			
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!ctrl.selectedProducto">Seleccionar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

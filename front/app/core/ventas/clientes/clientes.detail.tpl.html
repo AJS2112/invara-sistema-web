@@ -1,0 +1,50 @@
+<md-dialog aria-label="Detalle" class="_md-transition-in" flex-xs="100" flex="60">
+  <form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span flex="100">Cliente</span>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content class="md-dialog-content md-padding" layout-xs="column" layout="row">
+        
+        <div layout="column" flex="100">
+          <md-input-container class="md-block" >
+            <label>Nombre</label>
+            <input type="text" ng-model="ctrl.one.nombre" name="nombre" required md-autofocus minlength="3" maxlength="100">
+
+            <div ng-messages="formDetalle.nombre.$error">
+              <div ng-message="required">Este campo es obligatorio</div>
+              <div ng-message="minlength">Debe contener mínimo tres digitos</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>RIF</label>
+            <input type="text" ng-model="ctrl.one.rif" name="rif" required minlength="8" maxlength="20">
+            <div ng-messages="formDetalle.nombre.$error">
+              <div ng-message="required">Este campo es obligatorio</div>
+              <div ng-message="minlength">Debe contener mínimo tres digitos</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>Dirección</label>
+            <input type="text" ng-model="ctrl.one.direccion" >
+          </md-input-container>
+
+          <md-input-container class="md-block" >
+            <label>Teléfono</label>
+            <input type="text" ng-model="ctrl.one.telefono" >
+          </md-input-container>
+
+        </div>
+
+      </md-dialog-content>
+
+      <md-dialog-actions layout="row">
+      <md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+      <md-button type="submit" class="md-raised md-primary"  ng-disabled="!formDetalle.$valid || !ctrl.full">Guardar</md-button>  
+      </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,94 @@
+<style type="text/css">
+	table, tr, td {
+		border:0px;
+		font-family: Roboto, arial;
+		font-size:	16px;
+	}
+</style>
+<md-content class="md-padding" ng-cloak layout="row" layout-xs="column">
+
+	<div layout="column" flex="60" flex-xs="100" layout-padding>
+		<h4 style="background-color: lightgray">COTIZACIÓN: </h4>
+		<div>
+			<table width="90%">
+				<tr>
+					<td width="70%" align="left"><b>Moneda</b></td>
+					<td width="30%" align="right"><b>Valor</b></td>
+				</tr>
+				<tr align=left ng-repeat="item in ctrl.listaCotizacion">
+				  	<td width="70%" height="60px;">{{item.moneda_nombre}} ({{item.moneda_descrip}})</td>
+				  	<td width="30%" align="right">{{item.valor | currency:""}}</td>
+				</tr>
+			</table>
+			</br>
+		</div>
+
+		<h4 style="background-color: lightgray">CAJA {{ctrl.hasta | date:"dd/MM/yy"}}</h4>
+		<div>
+			<table width="90%">
+				<tr>
+					<td width="40%" align="left"><b>Instrumento</b></td>
+					<td width="20%" align="right"><b>Entradas</b></td>
+					<td width="20%" align="right"><b>Salida</b></td>
+					<td width="20%" align="right"><b>Total</b></td>
+				</tr>
+			  <tr align=left ng-repeat="item in ctrl.lista_caja">
+			  	<td width="40%" height="60px;"><b>{{item.instrumento}} ({{item.cuenta}})</b></td>
+			  	<td width="20%" align="right">{{item.ent | currency:""}}</td>
+			  	<td width="20%" align="right">{{item.sal | currency:""}}</td>
+			  	<td width="20%" align="right">{{item.total | currency:""}}</td>
+			  </tr>
+			  <tr align=left >
+			  	<td width="40%" height="60px;" ><b>{{ctrl.totales_caja.instrumento}} ({{ctrl.totales_caja.cuenta}})</b></td>
+			  	<td width="20%" align="right" style="color:blue"><b>{{ctrl.totales_caja.ent | currency:""}}</b></td>
+			  	<td width="20%" align="right" style="color:red"><b>{{ctrl.totales_caja.sal | currency:""}}</b></td>
+			  	<td width="20%" align="right" style="color:green"><b>{{ctrl.totales_caja.total | currency:""}}</b></td>
+			  </tr>
+			</table>
+			</br>
+		</div>
+
+	</div>
+	<div layout="column" flex="40" flex-xs="100" >
+
+		<div layout="row" style="background-color:dodgerblue; " >
+			<div layout="column" style="background-color:royalblue; padding: 0px 20px" layout-align="center center">
+	          	<span class="fa fa-cubes fa-4x fa-fw fa-inverse" ></span>
+			</div>
+			<div flex layout="column" style="color:white; " layout-align="center start" >
+				<p style="margin:10px;">INVENTARIO NETO</p>
+	          	<span style="margin:10px;"> <b>{{ctrl.lista_resumen[0].total | currency:""}}</b></span>
+				<hr width=100% color="white" size=2   noshade="noshade">
+	          	<p style="margin:10px;">Productos en Stock: {{ctrl.lista_resumen[0].cantidad || '0'}}</p>
+			</div>
+		</div>
+		<br>
+
+		<div layout="row" style="background-color:mediumseagreen; ">
+			<div layout="column" style="background-color:green; padding: 0px 20px" layout-align="center center">
+	          	<span class="fa fa-money fa-4x fa-fw fa-inverse" ></span>
+			</div>
+			<div flex layout="column" style="color:white; " layout-align="center start" >
+				<p style="margin:10px;">VENTAS {{ctrl.fechaStr}}</p>
+	          	<span style="margin:10px;"> <b>{{ctrl.lista_resumen[1].total | currency:""}}</b></span>
+				<hr width=100% color="white" size=2   noshade="noshade">
+	          	<p style="margin:10px;">Ventas emitidas: {{ctrl.lista_resumen[1].cantidad || '0'}}</p>
+			</div>
+		</div>
+		<br>
+
+		<div layout="row" style="background-color:orange; ">
+			<div layout="column" style="background-color:darkorange; padding: 0px 20px" layout-align="center center">
+	          	<span class="fa fa-shopping-cart fa-4x fa-fw fa-inverse" ></span>
+			</div>
+			<div flex layout="column" style="color:white; " layout-align="center start" >
+				<p style="margin:10px;">COMPRAS {{ctrl.fechaStr}}</p>
+	          	<span style="margin:10px;"> <b>{{ctrl.lista_resumen[2].total | currency:""}}</b></span>
+				<hr width=100% color="white" size=2   noshade="noshade">
+	          	<p style="margin:10px;">Compras realizadas: {{ctrl.lista_resumen[2].cantidad || '0'}}</p>
+			</div>
+		</div>
+		
+		
+	</div>
+</md-content>

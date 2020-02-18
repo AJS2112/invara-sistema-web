@@ -1,0 +1,119 @@
+
+.md-accordion .expandCollapse { 
+  width:30px;
+  height:30px;
+  position:relative;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+  color:#fff;
+  display:block;
+  margin-top: -2px;
+  margin-left: -2px;
+  overflow:hidden;
+}
+.md-accordion .expandCollapse:active {
+  border:0px solid red;
+}
+.md-accordion .expandCollapse:before, .md-accordion .expandCollapse:after {
+  width:30px;
+  height:30px;
+  display:block;
+  position:absolute;
+  top:0; left:0;
+  line-height:32px;
+  text-align:center;
+  -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+}
+.md-accordion .expandCollapse:before { 
+  opacity:1
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+  content: "\f0d7";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  margin-top:-3px;
+}
+.md-accordion .expandCollapse:after {
+  opacity:1;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  margin-left:-3px;
+}
+.md-accordion .active:before {
+  opacity:1;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  margin-left:3px;
+  margin-top:0px;
+}
+.md-accordion .dataContent {
+  background: transparent;
+  height:0px;
+  overflow:hidden;
+  -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+}
+.md-accordion .md-toolbar {
+  display:none;
+  margin-bottom: 200px; 
+}
+.md-accordion .activeContent {
+  height:auto;
+ /* padding:20px;*/
+  display:block;
+}
+.md-accordion md-toolbar{
+  cursor:pointer;
+  border-bottom:0px solid rgb(63,107,181)
+}
+.md-accordion .md-toolbar-tools{
+  font-size: 18px;
+  font-family: "Calibri", Georgia, Serif;
+  font-weight: normal;
+  color:#bdbdbd;
+}
+.md-accordion .md-toolbar-tools:hover{
+  background-color: #263238;
+}
+.md-accordion .md-toolbar-tools {
+
+}
+.activeItem{
+   -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+   background-color: #263238;
+}
+.mi-item{
+  padding-left: 0px;
+
+}
+.dataContent .mi-item li{
+  padding: 0px;
+  height: 30px;
+  text-indent: 20px;
+  padding-top: 12px;
+  font-size: 14px;
+}
+.dataContent .mi-item li:hover{
+  background-color: #546e7a;
+  cursor:pointer;
+}
+.md-sidenav-left{
+  width: 220px;
+}
+.activeListItem span{
+   -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+   background-color: #263238;
+}
+.activeAnclado{
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transition: .3s all ease-out;
+  transition: .3s all ease-out;
+}

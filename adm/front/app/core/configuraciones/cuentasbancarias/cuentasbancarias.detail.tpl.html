@@ -1,0 +1,33 @@
+<md-dialog aria-label="Cliente" class="_md-transition-in" flex-xs="100" flex="60">
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Cuenta Bancaria</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout-xs="column" layout="row">
+	    	
+          <md-input-container flex-xs="100" >
+            <label>Banco</label>
+            <md-select ng-model="ctrl.one.id_banco">
+              <md-option ng-repeat="elemento in ctrl.listaBancos" value="{{elemento.id}}" >
+                  {{elemento.nombre}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container flex-xs="100" >
+            <label>Número</label>
+            <input type="text" ng-model="ctrl.one.numero" required >
+          </md-input-container>
+
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!formDetalle.$valid || !ctrl.full">Guardar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

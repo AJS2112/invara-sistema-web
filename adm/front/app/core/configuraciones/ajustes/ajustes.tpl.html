@@ -1,0 +1,41 @@
+<md-input-container class="md-block" flex="50" flex-xs="100">
+  <label>Monedas</label>
+    <md-select ng-model="ctrl.monedasSeleccionadas" multiple>
+      <md-option ng-repeat="elemento in ctrl.listaMonedas" value="{{elemento.id}}" >
+          {{elemento.nombre}}
+      </md-option>
+    </md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex="50" flex-xs="100">
+  <label>Moneda por defecto</label>
+    <md-select ng-model="ctrl.one.moneda_defecto">
+      <md-option ng-repeat="elemento in ctrl.listaMonedas | filter: ctrl.myFilterBy" value="{{elemento.id}}" >
+          {{elemento.nombre}}
+      </md-option>
+    </md-select>
+</md-input-container>
+
+<md-input-container class="md-block" flex="50" flex-xs="100">
+	<label>Instrumentos de Pago</label>
+  	<md-select ng-model="ctrl.instrumentosSeleccionados" multiple>
+    	<md-option ng-repeat="elemento in ctrl.listaInstrumentos" value="{{elemento.id}}" >
+        	{{elemento.nombre}}
+    	</md-option>
+  	</md-select>
+</md-input-container>
+
+<md-input-container  class="md-block" flex="25" flex-xs="100">
+  <md-checkbox ng-model="ctrl.one.es_modo_fiscal" aria-label="inactivo">Fiscal</md-checkbox>
+</md-input-container>
+
+<md-input-container class="md-block" flex="25" flex-xs="100">
+   <input formato-numerico class="align-right"  ng-model="ctrl.one.pct_fiscal" type="text" placeholder="% Ganancia General">
+</md-input-container>
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.guardar()">
+    <md-tooltip md-direction="top">Guardar</md-tooltip>
+    <span class ="fa fa-save fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

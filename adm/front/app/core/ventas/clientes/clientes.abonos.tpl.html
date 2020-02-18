@@ -1,0 +1,58 @@
+<style type="text/css">
+  .grid {
+      height: 300px;
+  }
+  table, tr, td {
+    border:0px;
+    font-family: Roboto, arial;
+    font-size:  16px;
+  }
+</style>
+<md-dialog aria-label="Detalle" class="_md-transition-in" flex-xs="100" flex="60">
+  <form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span flex="100">Pagos recibidos {{ctrl.one.tipo_documento_nombre}} ({{ctrl.one.nro_control}})</span>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content class="md-dialog-content md-padding" layout="column">
+        <div layout="column" class="md-padding" flex="100">
+          <table border="0" width="100%"  cellpadding="0" cellspacing="0">
+            <tr >
+              <td width="12%" style="color:blue; border-bottom: 1px solid blue" height="50px;"><b>Fecha</b></td>
+              <td width="18%" style="color:blue; border-bottom: 1px solid blue" ><b>Instrumento</b></td>
+              <td width="20%" style="color:blue; border-bottom: 1px solid blue" ><b>Nº Cuenta</b></td>
+              <td width="15%" style="color:blue; border-bottom: 1px solid blue" ><b>Nº Referencia</b></td>
+              <td width="10%" style="color:blue; border-bottom: 1px solid blue" ><b>Moneda</b></td>
+              <td width="10%" style="color:blue; border-bottom: 1px solid blue" ><b>Tasa</b></td>
+              <td width="15%" style="color:blue; border-bottom: 1px solid blue" ><b>Monto</b></td>
+            </tr>
+            <tr ng-repeat="selObj in ctrl.pago | filter:{ id_instrumento: '!11E93E7A9E776D889B0D00E04C6F7E24'} ">
+              <td width="12%" height="50px;">{{selObj.fecha | date:"dd/MM/yyyy"}}</td>
+              <td width="18%" >{{selObj.instrumento_nombre}}</td>
+              <td width="20%" >{{selObj.cuenta_numero}}</td>
+              <td width="15%" >{{selObj.numero_operacion}}</td>
+              <td width="10%" >{{selObj.moneda_descrip}}</td>
+              <td width="10%" >{{selObj.factor | currency:""}}</td>
+              <td width="15%" align="right">{{selObj.monto_moneda | currency:""}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div layout="column" class="md-padding"  flex="100">
+          <div layout="row" flex="100" layout-align="space-between">
+            Total Abono ({{ctrl.miCotizacion.moneda_descrip}}): <b>{{ctrl.one.abonos_moneda | currency:""}}</b>
+          </div>
+          <div layout="row" flex="100" layout-align="space-between">
+            Total Deuda ({{ctrl.miCotizacion.moneda_descrip}}): <b>{{ctrl.one.deuda_moneda | currency:""}}</b>
+          </div>
+        </div>
+
+      </md-dialog-content>
+
+      <md-dialog-actions layout="row">
+      <md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cerrar</md-button> 
+      </md-dialog-actions>
+  </form>
+</md-dialog>

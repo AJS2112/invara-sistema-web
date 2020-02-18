@@ -1,0 +1,72 @@
+<div layout="row" layout-xs="column">
+
+  <div layout="column">
+
+    <!-- REPORTE -->
+    <md-input-container class="md-block" >
+      <label>Reporte</label>
+        <md-select ng-model="ctrl.idReporte" ng-change="ctrl.selOptReport()" >
+          <md-option value="1">Listado de Existencias</md-option>
+          <md-option value="2">Listado de Precios</md-option>
+          <md-option value="3">Resumen de Movimientos</md-option>
+          <md-option value="4">Movimiento Detallado</md-option>
+          <md-option value="5">Inventario Monetario</md-option>
+        </md-select>
+      </md-input-container>
+
+    <!-- CATEGORIAS -->   
+    <md-input-container class="md-block" >
+      <label>Categoria</label>
+        <md-select ng-model="ctrl.idCategoria" ng-change="ctrl.getProductos()">
+          <md-option value="x">TODAS</md-option>
+            <md-option ng-repeat="elemento in ctrl.listaCategorias" value="{{elemento.id}}">
+                {{elemento.nombre}}
+            </md-option>
+        </md-select>
+      </md-input-container>
+    
+    <div layout="row" ng-show="ctrl.usa_fecha">
+        <md-input-container class="md-block" flex-xs="100">
+        <label>Desde</label>                  
+        <md-datepicker ng-model="ctrl.desde" ></md-datepicker>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-xs="100">
+        <label>Hasta</label>                  
+        <md-datepicker ng-model="ctrl.hasta" ></md-datepicker>
+      </md-input-container>
+    </div>
+  </div>
+
+  <div layout="column" ng-show="ctrl.usa_productos">
+    <md-input-container class="md-block">
+        <input type="text"  ng-change="ctrl.filtrar()"  id="txt_filtro" placeholder="Filtro de Busqueda" ng-model="ctrl.filtro">
+    </md-input-container>
+
+    <md-content layout="column">
+      <md-list flex>
+            <md-list-item class="md-3-line" 
+              ng-repeat="item in ctrl.listaProductos | orderBy: 'nombre'" 
+              ng-class="{'nav-active ': item==ctrl.activeItem}"
+              ng-click="ctrl.selItem(item,$event)" >
+              <div class="md-list-item-text"  
+                ng-class="{'txt-lista-blanco': item==ctrl.activeItem}"
+                layout="column">
+                <h3>{{ item.nombre }}</h3>
+                <h4>{{ item.codigo }}</h4>
+                <p>{{ item.unidad_venta_nombre }}</p>
+              </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+  </div>
+
+</div>
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" 
+      ng-click="ctrl.selectReport()" ng-disabled="!ctrl.btnImprimir">
+    <md-tooltip md-direction="top">Imprimir</md-tooltip>
+    <span class ="fa fa-print fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>

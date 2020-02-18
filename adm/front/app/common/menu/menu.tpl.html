@@ -1,0 +1,123 @@
+<section layout="row" flex >
+	<!-- MENU IZQUIERDO -->
+	<md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="1" 
+				md-colors="::{backgroundColor: 'blue-grey-800'}" md-is-locked-open ="lockLeft && $mdMedia('gt-lg')">
+		
+		<md-toolbar  layout="row" layout-align="left" md-colors="::{backgroundColor: 'blue-grey-700'}" layout-	padding>
+		   	<md-button class="md-icon-button" ng-click="lockLeft= false;ctrl.showLeftSection()" aria-label="Toggle Menu" 
+		   		style="padding-top:18px; margin-left:10px;">
+	        	<span class ="fa fa-navicon fa-fw fa-lg " id="md-bot-main" style="font-size:21px;color:#9B9B9B";>
+	        	</span>
+        	</md-button>
+		</md-toolbar>
+		
+		<md-content md-colors="::{backgroundColor: 'blue-grey-800'}"  >
+			<div class="md-accordion" ng-repeat="item in ctrl.menuArbol | filter:{ id_seccion: 1} | orderBy: 'orden_pos' ">
+				<md-toolbar  md-colors="::{backgroundColor: 'blue-grey-800'}"  ng-init="data.expanded = false" 
+				ng-click="ctrlcollapseAll(item);data.expanded = !data.expanded" >
+					<div ng-if="item.id_tipo==1"  class="md-toolbar-tools" ng-class="{activeItem:data.expanded}" >
+							<span class ="md-item" 
+								ng-init="data.expanded = false" >{{ item.nombre }}
+							</span>
+						<span flex=""></span>
+						<span ng-class="{expandCollapse:true, active:data.expanded}"></span> 
+					</div>
+					<div ng-if="item.id_tipo==3"  class="md-toolbar-tools"  >
+							<span class ="md-item"  ng-click="ctrl.goto(item.trigger)">
+							{{ item.nombre }}
+							</span>
+						<span flex=""></span>
+					</div>
+				</md-toolbar>
+				<div ng-class="{dataContent:true, activeContent:data.expanded}">
+					<ul class="mi-item" ng-repeat="item in item.child | filter:{ id_seccion: 1 } | orderBy: 'orden_pos' " >
+				       	<li ng-click="ctrl.goto(item.trigger)" ng-class="{activo:data.Este}"  ng-init="data.Este = false" ng-click="data.Este = !data.Este"  >
+				       	<span>{{item.nombre}}</span></li>
+				     </ul>
+				</div>
+			</div>
+	    </md-content>
+	</md-sidenav>
+
+
+	<md-content  layout="column" flex >
+		<!-- BARRA -->
+		<md-toolbar>
+			<div layout="row" layout-align="space-between center" class="md-toolbar-tools" >
+				<div layout ="row" layout-align="start center" >
+				   	<md-button ng-if ="!lockLeft" class="md-icon-button" ng-click="ctrl.showLeftSection()" aria-label="Toggle Menu" >
+			        	<span   class ="fa fa-navicon fa-fw fa-lg" ></span>
+			        </md-button>
+
+			        <!-- TITULO DE LA BARRA -->
+			       	<h2 class="md-toolbar-item md-breadcrumb md-headline">
+			            <span class="md-breadcrumb-page" ng-if="$parent.appSeccion">
+			             	{{$parent.appSeccion}}
+			           	</span>
+			       	</h2>
+			    </div>
+			  	
+			  	<!-- Icono Central -->
+			    <div>
+				    <a href="#/inicio">
+				    	<img src="front/assets/img/logo.png"  alt="" width="60px;"/>
+				    	<!--
+					    <span class="fa fa-home fa-fw fa-lg" ></span>
+					-->
+				    </a>
+			    </div>
+
+		    	<!-- Menu Derecha -->
+				<div layout ="row" layout-align="end center" >
+			       	<md-menu md-position-mode="target-right target">
+				       	<md-button class="md-icon-button" ng-click="ctrl.openConfig($mdMenu,$event)">
+			    			<md-tooltip md-autohide>{{ctrl.logUser.nombre}}</md-tooltip>
+			    			<span class ="fa fa-user fa-fw fa-2x" ></span>	
+			    		</md-button>
+
+				       	<md-menu-content width="4">
+					       	<md-menu-item style="height:150px;">
+					       		<md-content>
+						       		<p>{{ctrl.logUser.nombre}} </p>
+						       		<p>{{ctrl.logUser.cedula}} </p>			       		
+						       		<md-button class="md-raised md-primary" ng-click="ctrl.openAccount('profile')">
+								       	Mi Cuenta			       			
+						       		</md-button>
+						       		<md-button class="md-raised" ng-click="ctrl.goto('login')">
+								       	CERRAR SESION			       			
+						       		</md-button>
+						       	</md-content>
+					       	</md-menu-item>
+				       	</md-menu-content>
+				   	</md-menu>
+			       	<md-menu ng-if="ctrl.logUser.id_tipo==='1'" md-position-mode="target-right target">
+				       	<md-button class="md-icon-button" ng-click="ctrl.openConfig($mdMenu,$event)">
+				       		<md-tooltip md-autohide>Configuraciones</md-tooltip>
+					       	<span class ="fa fa-cog fa-fw fa-2x" ></span>				       		
+				       	</md-button>
+				       	<md-menu-content width="4">
+					       	<md-menu-item ng-repeat="item in ctrl.menuArbol  | filter:{ id_seccion: 2 }">
+					       		<md-button ng-click="ctrl.goto(item.trigger)">
+							       	<span class ="{{item.icono}} fa-fw fa-lg" ></span>
+							       	{{item.nombre}}			       			
+					       		</md-button>
+					       	</md-menu-item>
+				       	</md-menu-content>
+				   	</md-menu>
+
+				   	<!-- MONEDA -->
+					<md-select ng-if="!ctrl.empresa.es_modo_fiscal"  ng-model="$parent.id_moneda" class="md-no-underline" ng-change="ctrl.seleccionaCotizacion()">
+						<md-option ng-repeat="item in ctrl.listaCotizacion" value="{{item.id_moneda}}" >
+							{{item.moneda_descrip}}
+						</md-option>
+			        </md-select>
+
+				</div>
+		    </div>
+		</md-toolbar>
+		<md-content >
+			<div ui-view layout="column" layout-padding flex></div>	
+		</md-content >
+	</md-content >
+
+</section>

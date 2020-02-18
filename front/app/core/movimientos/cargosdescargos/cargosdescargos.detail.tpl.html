@@ -1,0 +1,82 @@
+<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	<div layout="row" layout-xs="column">
+	  	<md-input-container class="md-block" flex-xs="100">
+			<label>Fecha</label>									
+			<md-datepicker ng-model="ctrl.one.fecha" ng-change="ctrl.showDate()" ></md-datepicker>
+		</md-input-container>
+
+	  	<md-input-container class="md-block" flex-xs="100">
+	    	<label>Nro Control</label>
+	    	<input type="text" ng-model="ctrl.one.nro_control" disabled="=true" >
+	  	</md-input-container>
+
+	  	<!-- TIPO -->		
+		<md-input-container flex-xs="100">
+			<label>Tipo</label>
+			<md-select ng-model="ctrl.one.id_tipo" disabled="true">
+		    <md-option ng-repeat="elemento in ctrl.listaOperaciones" value="{{elemento.id}}" >
+		        {{elemento.nombre}}
+		    </md-option>
+			</md-select>
+		</md-input-container>
+
+	  	<!-- DESTINO -->		
+		<md-input-container flex-xs="100">
+			<label>Destino</label>
+			<md-select ng-model="ctrl.one.id_destino">
+		    <md-option ng-repeat="elemento in ctrl.listaAlmacenes" value="{{elemento.id}}" >
+		        {{elemento.nombre}}
+		    </md-option>
+			</md-select>
+		</md-input-container>
+
+	  	<md-input-container class="md-block" flex-xs="100">
+	    	<label>Observación</label>
+	    	<input type="text" ng-model="ctrl.one.observacion" >
+	  	</md-input-container>		
+
+	</div>
+
+
+	<!-- COMPRAS -->
+	<md-toolbar class="md-primary md-hue-1">
+		<div class="md-toolbar-tools">
+	        <h5>
+	          <span>PRODUCTOS</span>
+	        </h5>
+	        <span flex></span>
+
+	        <md-button class="md-fab md-mini md-warn md-raised" aria-label="Eliminar" ng-click="ctrl.delProducto($event)" ng-show="ctrl.cntSel>0">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Eliminar
+	          </md-tooltip>
+	          <span class ="fa fa-remove fx-fw"></span>
+	        </md-button>
+
+	        <md-button class="md-fab md-mini md-warn md-raised" aria-label="Editar" ng-click="ctrl.selProducto($event)" ng-show="ctrl.cntSel>0">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Seleccionar
+	          </md-tooltip>
+	          <span class ="fa fa-edit fx-fw"></span>
+	        </md-button>
+
+	        <md-button class="md-fab md-mini md-warn md-raised" aria-label="Agregar" ng-click="ctrl.openDialogProductos($event)" ng-show="ctrl.one.id_destino">
+	          <md-tooltip md-direction="top" md-visible="tooltipVisible" md-autohide="false">
+	            Agregar
+	          </md-tooltip>
+	          <span class ="fa fa-plus fx-fw"></span>
+	        </md-button>
+
+	   	</div>
+	</md-toolbar>	
+
+	<div id="gridDetail" ui-grid="ctrl.gridDetail" ui-grid-selection class="grid"></div>
+
+<md-content >
+  <md-button class="md-fab md-accent md-fab-bottom-right" aria-label="New" style="position:fixed !important;" ng-click="ctrl.guardar()" ng-disabled="!formDetalle.$valid || !ctrl.full">
+    <md-tooltip md-direction="top">Guardar</md-tooltip>
+    <span class ="fa fa-save fx-fw" style="font-size: 20px;"></span>
+  </md-button>
+</md-content>
+
+</form>

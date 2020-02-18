@@ -1,0 +1,80 @@
+<md-dialog aria-label="Detalle" class="_md-transition-in" flex-xs="100" flex="50">
+  <form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span flex="100">Operacion</span>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content class="md-dialog-content md-padding" >
+        
+        <div layout="column" flex="100">
+
+          <div layout="row" layout-xs="column" >
+            <md-input-container class="md-block" flex=50 flex-xs="100">
+              <label>Fecha</label>                  
+              <md-datepicker ng-model="ctrl.one.fecha" ></md-datepicker>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex=50 flex-xs="100">
+               <input ng-model="ctrl.one.nro_control" type="text" placeholder="Nº Control" disabled="true">
+            </md-input-container>
+          </div>
+
+          <md-input-container class="md-block" flex=15>
+             <input ng-model="ctrl.one.descripcion" type="text" placeholder="Descripción" >
+          </md-input-container>
+
+          <md-input-container flex="15" flex-xs="100">
+            <label>Monto</label>
+            <input formato-numerico type="text" ng-model="ctrl.one.monto">
+          </md-input-container>       
+
+          <!-- INSTRUMENTO PAGO -->
+
+          <md-input-container flex="15" flex-xs="100">
+            <label>Instrumento</label>
+              <md-select ng-model="ctrl.ip.id_instrumento" flex-xs="100" ng-change="ctrl.selInstrumento()">
+                <md-option ng-repeat="elemento in ctrl.listaInstrumentos" value="{{elemento.id}}" >
+                    {{elemento.nombre}}
+                </md-option>
+            </md-select>
+          </md-input-container>
+
+          <!-- BANCOS -->   
+          <md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.bancos_visible">
+            <label>Banco</label>
+              <md-select ng-model="ctrl.ip.id_banco" flex-xs="100" >
+                <md-option ng-repeat="elemento in ctrl.listaBancos" value="{{elemento.id}}" ng-selected="$first">
+                    {{elemento.nombre}}
+                </md-option>
+            </md-select>
+          </md-input-container>   
+
+          <!-- CUENTAS BANCARIAS -->    
+          <md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.cuentas_visible">
+            <label>Cuenta bancaria</label>
+              <md-select ng-model="ctrl.ip.id_cuenta" flex-xs="100">
+                <md-option ng-repeat="elemento in ctrl.listaCuentas" value="{{elemento.id}}" ng-selected="$first">
+                    {{elemento.banco_nombre}} ({{elemento.numero}})
+                </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container flex="15" flex-xs="100" ng-hide="!ctrl.nro_operacion_visible">
+            <label>Nro Operación</label>
+            <input type="text" ng-model="ctrl.ip.numero_operacion">
+          </md-input-container>
+
+          
+
+        </div>
+
+      </md-dialog-content>
+
+      <md-dialog-actions layout="row">
+      <md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+      <md-button type="submit" class="md-raised md-primary"  ng-disabled="!formDetalle.$valid || !ctrl.full">Guardar</md-button>  
+      </md-dialog-actions>
+  </form>
+</md-dialog>

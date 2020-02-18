@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="es-419"><style>div#content {
+    display: none;
+    }
+ 
+  div#loading {
+    top: 200 px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 160px;
+    height: 24px;
+    background: url(front/assets/img/loading_icon.gif) no-repeat;
+    cursor: wait;
+    }</style><head><title>Verona Fabrica</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="mobile-web-app-capable" content="yes"><meta charset="utf-8"><script type="text/javascript" src="front/assets/js/pace.min.js"></script><link rel="stylesheet" href="front/assets/css/pace.min.css"><link rel="stylesheet" href="front/dist/app.min.css"></head><body ng-app="myApp" class="docs-body" layout="row" onload="init()"><div id="loadimg" style="position:absolute; width:100%; text-align:center; top:300px"><img src="front/assets/img/loading_icon.gif" border="0"></div><script>var ld=(document.all);
+      var ns4=document.layers;
+      var ns6=document.getElementById&&!document.all;
+      var ie4=document.all;
+        if (ns4)
+          ld=document.loadimg;
+        else if (ns6)
+          ld=document.getElementById("loadimg").style;
+        else if (ie4)
+          ld=document.all.loadimg.style;
+          function init()
+           {
+           if(ns4){ld.visibility="hidden";}
+           else if (ns6||ie4) ld.display="none";
+           }</script><div layout="column" tabindex="-1" role="main" flex ng-cloak ui-view></div><script type="text/javascript" src="front/dist/vendor.js"></script><script type="text/javascript" src="front/dist/app.js"></script></body></html>

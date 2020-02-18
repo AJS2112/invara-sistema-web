@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es-419">
+<!--
+-->
+  <style>
+  .overlay-element {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    opacity: 1;
+    /*transition: 1s;*/
+  }
+
+  .animate-show-hide.ng-hide {
+    opacity: 0;
+  }
+
+  .animate-show-hide.ng-hide-add,
+  .animate-show-hide.ng-hide-remove {
+    transition: all linear 0.5s;
+  }
+
+  #text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 50px;
+      color: darkgray;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+  }
+  </style>
+
+  <head>
+      <title>Inversiones ARA</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta charset="utf-8">
+
+    
+  <!-- CSS -->
+<!--
+-->
+      <script type="text/javascript" src="front/assets/js/pace.min.js"></script>
+      <link rel="stylesheet" href="front/assets/css/pace.min.css">
+      <link rel="stylesheet" href="front/assets/css/angular-material.min.css">
+      <link rel="stylesheet" href="front/assets/css/font-awesome.min.css">
+ 
+      <!--
+    
+      <link href="//fonts.googleapis.com/css?family=RobotoDraft:100,300,400,500,700" rel="stylesheet">
+      -->
+
+  </head>
+
+  <body ng-app="myApp" class="docs-body" layout="row"  >
+
+    <div id="overlay" class="overlay-element animate-show-hide" ng-show="!preloader">
+      <div id="text" >
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div layout="column" tabIndex="-1" role="main" flex ng-cloak ui-view></div>
+
+
+  
+    <!-- JS -->
+    <!-- env:dev -->
+      <script type="text/javascript" src="front/assets/js/angular.min.js"></script>
+      <script type="text/javascript" src="front/assets/js/angular-animate.min.js"></script>
+      <script type="text/javascript" src="front/assets/js/angular-aria.min.js"></script>
+      <script type="text/javascript" src="front/assets/js/angular-messages.min.js"></script>
+      <script type="text/javascript" src="front/assets/js/angular-ui-router.min.js"></script>
+      <script type="text/javascript" src="front/assets/js/ocLazyLoad.min.js" ></script>
+      <script type="text/javascript" src="front/assets/js/angular-material.min.js"></script>
+
+      <script type="text/javascript" src="front/app/app.js"></script>
+      <script type="text/javascript" src="front/app/app.config.js"></script>      
+    <!-- env:dev:end -->
+
+  </body> 
+</html>

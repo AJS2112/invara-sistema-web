@@ -1,0 +1,74 @@
+<style type="text/css">
+	.grid {
+	    height: 300px;
+	}
+	table, tr, td {
+		border:0px;
+		font-family: Roboto, arial;
+		font-size:	16px;
+	}
+</style>
+
+<md-dialog aria-label="Cliente" class="_md-transition-in" flex-xs="100" flex="70">
+	<form name="formDetalle" ng-submit="formDetalle.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Cotización del Dolar</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout="column">
+
+	    	<div layout="row">
+	    		<md-input-container class="md-block" >
+					<label>Nº Control</label>
+					<input type="text" ng-model="ctrl.one.nro_control"  >
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>Fecha</label>                  
+					<md-datepicker ng-model="ctrl.one.fecha" ng-change="ctrl.miFecha()"></md-datepicker>
+				</md-input-container>
+
+				<md-input-container class="md-block" >
+					<label>Observación</label>
+					<input type="text" ng-model="ctrl.one.observacion"  >
+				</md-input-container>
+	    	</div>
+
+	    	<div layout="row">
+	    		<md-select ng-model="ctrl.id_moneda" class="md-no-underline" ng-change="ctrl.selMoneda()">
+					<md-option ng-repeat="item in ctrl.listaMonedas" value="{{item.id}}" >
+						{{item.nombre}}
+					</md-option>
+		        </md-select>
+
+		        <md-input-container class="md-block" >
+					<label>Valor</label>
+					<input formato-numerico type="text" ng-model="ctrl.valor"  >
+				</md-input-container>
+				<div>
+					
+				<md-button type="button" class="md-raised" ng-click="ctrl.addMoneda()">Agregar</md-button> 
+				</div>
+	    	</div>
+
+	    	<div>
+				</br>
+				<table border="0" width="100%"  cellpadding="0" cellspacing="0">
+				  <tr ng-repeat="selObj in ctrl.lista">
+				    <td width="60%" height="50px;">{{selObj.moneda_nombre}}</td>
+				    <td width="35%" align="right">{{selObj.valor | currency:""}}</td>
+				    <td width="5%" align="right"><a href="javascript:void(0);" ng-click="ctrl.delMoneda(selObj)" ><i class="fa fa-times linkDelete" aria-hidden="true" ></i></a></td>				
+				  </tr>
+				</table>
+			</div>
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button> 
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!formDetalle.$valid || !ctrl.full || ctrl.one.id!='0'">Guardar</md-button>  
+	    </md-dialog-actions>
+	</form>
+</md-dialog>

@@ -1,0 +1,85 @@
+<style>
+  .doc-menu,
+  .doc-menu ul {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .menu-edit-button{
+    color:RoyalBlue;
+  }
+  .menu-delete-button{
+    color:red;
+  }  
+</style>
+
+<md-dialog aria-label="Permisos de usuario" flex-xs="90" flex="60" class="_md-transition-in">
+	<form name="formPermisos" ng-submit="formPermisos.$valid && ctrl.guardar()" novalidate>
+	    <md-toolbar>
+	      <div class="md-toolbar-tools">
+	        <span flex="100">Permisos de usuario</span>
+	      </div>
+	    </md-toolbar>
+
+	    <md-dialog-content class="md-dialog-content md-padding" layout-xs="column" layout="row" > 
+			<div layout="column" flex-xs="50" flex="50" >
+				<md-input-container class="md-block">
+				   <input ng-model="ctrl.one.nombre" type="text" placeholder="Nombre" disabled="true">
+				</md-input-container>
+
+				<md-input-container class="md-block">
+				   <input ng-model="ctrl.one.cedula" type="text" placeholder="Cédula" disabled="true">
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<md-select ng-disabled="ctrl.one.id_tipo==1 && ctrl.logUser.id_tipo!=1 " ng-model="ctrl.one.id_tipo" placeholder="Nivel" class="md-no-underline">
+				    	<md-option ng-value="3" >Standard</md-option>          
+				    	<md-option ng-value="2" >Administrador</md-option>          
+				    	<md-option ng-value="1" ng-if="ctrl.logUser.id_tipo==1" >Master</md-option>          				    					    	
+				  	</md-select>		
+			  	</md-input-container>
+			</div>
+			<!--
+			-->
+
+			<div layout="column" flex-xs="50" flex="50"  >	
+				<md-content flex style="height:300px">		
+					  <md-select ng-model="ctrl.selectedSeccion" placeholder="Sección" class="md-no-underline">
+					    <md-option ng-repeat="item in ctrl.secciones" ng-value="item.id" ng-selected="$first">
+					      {{item.nombre}}
+					    </md-option>          
+					  </md-select>
+
+			        <div style="height:20px">
+			            Raíz
+			        </div>        
+
+				    <script type="text/ng-template" id="categoryTree">
+				    	<div layout="row" layout-align="start center" style="height: 40px">
+							<md-checkbox  ng-checked="ctrl.exists(item.id, ctrl.selected)" ng-click="ctrl.toggle(item.id, ctrl.selected)" aria-label="opcion">
+						       	{{ item.nombre }}
+				          	</md-checkbox>
+						</div>
+
+				    	<ul class="doc-menu" ng-if="item.child">
+				        	<li ng-repeat="item in item.child | filter:{ id_seccion: ctrl.selectedSeccion }" ng-include="'categoryTree'"></li>
+				    	</ul>
+				    </script>
+
+				    <ul class="doc-menu">
+				        <li ng-repeat="item in ctrl.arbol | filter:{ id_seccion: ctrl.selectedSeccion }" ng-include="'categoryTree'"></li>
+				    </ul>    
+			    </md-content>
+
+			</div>
+
+	    </md-dialog-content>
+
+	    <md-dialog-actions layout="row">
+			<md-button type="button" class="md-raised" ng-click="ctrl.cancel()">Cancelar</md-button>  
+			<md-button type="submit" class="md-raised md-primary"  ng-disabled="!formPermisos.$valid">Guardar</md-button>  
+	    </md-dialog-actions>
+
+
+	</form>
+</md-dialog>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><RelacionRetencionesISLR Periodo="201703" RifAgente="V137445910">
+<DetalleRetencion><RifRetenido>V137445910</RifRetenido><NumeroFactura></NumeroFactura><NumeroControl>011084</NumeroControl><CodigoConcepto></CodigoConcepto><MontoOperacion>23214.29</MontoOperacion><PorcentajeRetencion>5.00</PorcentajeRetencion></DetalleRetencion>
+<DetalleRetencion><RifRetenido>V137445910</RifRetenido><NumeroFactura>2222</NumeroFactura><NumeroControl>22222</NumeroControl><CodigoConcepto>031</CodigoConcepto><MontoOperacion>211110.00</MontoOperacion><PorcentajeRetencion>1.00</PorcentajeRetencion></DetalleRetencion>
+<DetalleRetencion><RifRetenido>V137445910</RifRetenido><NumeroFactura>3333</NumeroFactura><NumeroControl>33333</NumeroControl><CodigoConcepto>071</CodigoConcepto><MontoOperacion>350000.00</MontoOperacion><PorcentajeRetencion>1.00</PorcentajeRetencion></DetalleRetencion>
+</RelacionRetencionesISLR>

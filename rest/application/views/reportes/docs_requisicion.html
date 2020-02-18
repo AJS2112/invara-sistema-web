@@ -1,0 +1,193 @@
+<style>
+.report-footer {
+    width: 100%;
+    position: fixed;
+    bottom: 150px;
+}
+.report-pagenum:before {
+    content: counter(page);
+}
+
+.report-title  {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1.0em;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 30px;
+  /*
+  */
+  text-align:center;
+}
+
+.mi-tabla  {
+    border-collapse: collapse;
+    width: 100%;
+}
+/*
+*/
+.report-table table, th, td {
+    border: 0.5px solid dimgray;
+  height: 30px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-variant: normal;
+}
+
+.codpres tr td{
+    /*border: 0.5px solid dimgray;*/
+  height: 10px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 8px;
+
+}
+
+
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<title></title>
+</head>
+<body style="margin-top:0px;margin-left:20px;margin-right:10px;margin-bottom: 0px;">
+	<table class="mi-tabla  report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr > 
+			<td width="20%"> <img src="files/logogob.png" alt="" width="140px;" align="middle"> </td> 
+			<td align="center">
+				<span>Av. Fuerzas Armadas</span><br>
+				<span>RIF: G-200009505-9</span><br>
+				<span>Bosmoca2015@gmail.com</span><br>			
+			</td>
+			<td width="20%"> <img src="files/logo.png" alt="" width="120px;" align="middle"> </td> 		
+		</tr>
+		<tr>
+			<td colspan="3" align="center" height="10px;">BIENES, OBRAS Y SERVICIOS MONAGUENSES. C.A (BOSMOCA)</td> 
+		</tr>	
+	</table>
+
+	<h3 class="report-title" >REQUISICION</h3>
+
+	<br>
+	<table class="mi-tabla report-table" border="0" cellpadding= 0 cellspacing=0  width="100%">
+		<tr> 
+			<td width="70%">
+				<b>De: Bienes, Obras y Servicios Monanguenses, C.A.</b><br>
+				<span>Sirvase realizar las gestiones necesarias a fin de suministrar el material abajo indicado antes de: ____/____/____</span>	
+			</td>
+
+			<td>
+				<b>Número: </b> <span><?php if ($documento)echo $documento["nro_control"] ?></span><br>
+				<b>Fecha: </b><span><?php if ($documento){
+					$time = strtotime($documento["fecha"]);
+					$newformat = date('Y-m-d',$time);
+					echo $newformat;
+					} ?></span><br>
+				<b>Presupuesto Ordinario: </b><span><?php if ($documento)echo $documento["nombre_periodo"] ?></span>
+			</td> 
+		</tr>
+	</table>
+	<br>
+	<br>
+	<table class="mi-tabla report-table" cellpadding= 0 cellspacing=0>
+		<tr align="center">
+			<td colspan="5" align="center">MATERIAL REQUERIDO</td>
+		</tr>
+		<tr align="center">
+			<td width="60%">DESCRIPCION Y CARACTERISTICAS</td>
+			<td width="8%">UNIDAD</td>
+			<td width="9%">CANTIDAD</td>
+			<td width="11%">UNITARIO</td>
+			<td width="12%">MONTO</td>				
+		</tr>
+
+		<?php for($i=0, $ni=count($bienesyservicios); $i < $ni; $i++){ ?>
+			<tr>
+				<td valign="center"  height="25px;"><?php if ($bienesyservicios)echo $bienesyservicios[$i]["descrip"] ?></td>
+				<td valign="center"><?php if ($bienesyservicios)echo $bienesyservicios[$i]["unidad"] ?></td>
+				<td valign="center" align="right" ><?php if ($bienesyservicios)echo  number_format($bienesyservicios[$i]["cantidad"], 2, ',', '.') ?></td>
+				<td valign="center" align="right" ><?php if ($bienesyservicios)echo  number_format($bienesyservicios[$i]["monto_und"], 2, ',', '.') ?></td>
+				<td valign="center" align="right" ><?php if ($bienesyservicios)echo  number_format($bienesyservicios[$i]["monto"], 2, ',', '.') ?></td>						
+			</tr>
+		<?php } ?>
+
+		<tr>
+			<td colspan="4" align="right">SUBTOTAL</td>				
+			<td align="right"><?php if ($documento)echo  number_format($documento["monto_bruto"], 2, ',', '.') ?></td>
+		</tr>
+		<tr>
+			<td colspan="4" align="right">IVA</td>				
+			<td width="10%" align="right"><?php if ($documento)echo  number_format($documento["monto_iva"], 2, ',', '.') ?></td>
+		</tr>
+		<tr>
+			<td colspan="4" align="right">TOTAL</td>				
+			<td align="right"><?php if ($documento)echo  number_format($documento["monto_neto"], 2, ',', '.') ?></td>
+		</tr>	
+
+
+	</table>
+
+	<br>
+	<br>
+
+	<table class="mi-tabla  report-table" width="100%"  cellpadding= 0 cellspacing=0>
+		<tr>
+			<td colspan="2" height="60px" valign="top"><b>MOTIVO DEL PEDIDO:</b> <?php if ($documento)echo $documento["concepto_gnrl"] ?></td>
+		</tr>
+		<tr >
+			<td width="70%"><b>PROVEEDOR FAVORECIDO:</b> <span> <?php if ($documento)echo $documento["nombre_bene"] ?></span></td>
+			<td  width="30%"><b>RIF:</b> <span><?php if ($documento)echo $documento["rif_bene"] ?></span></td>
+		</tr>
+	</table>
+
+	<br>
+	<br>
+
+	<table class="mi-tabla  codpres">
+		<tr>
+			<td colspan="3" align="center">IMPUTACIÓN PRESUPUESTARIA</td>
+		</tr>
+		<tr align="center" >
+			<td width="10%">PARTIDA</td>
+			<td width="70%">DESCRIPCIÓN</td>
+			<td width="20%">MONTO</td>
+		</tr>
+
+		<?php for($i=0, $ni=count($codpres); $i < $ni; $i++){ ?>
+			<tr rowspan="4" >
+				<td valign="center" align="right"><?php if ($codpres)echo $codpres[$i]["cod_cuenta"] ?></td>
+				<td valign="center" align="left" ><?php if ($codpres)echo $codpres[$i]["nomb_cuenta"] ?></td>
+				<td valign="center" align="right" ><?php if ($codpres)echo  number_format($codpres[$i]["monto"], 2, ',', '.') ?></td>
+			</tr>
+		<?php } ?>
+
+	</table>
+
+	<div class="report-footer">
+		<table class="mi-tabla  report-table">
+			<tr rowspan="4" height="150px;">
+				<td width="25%" valign="top" align="center" >CONTRALORIA</td>
+				<td width="25%" valign="top" align="center" >DEPARTAMENTO DE COMPRAS</td>
+				<td width="25%" valign="top" align="center" >UNIDAD DE PROCESAMIENTO DE DATOS (ADMINISTRACION)</td>
+				<td width="25%" valign="top" align="center" >UNIDAD EMISORA</td>
+			</tr>
+			<tr>
+				<td height="100px" valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+				<td valign="top" align="center" ></td>
+			</tr>
+			<tr>
+				<td >JEFE</td>
+				<td >JEFE</td>
+				<td >SUPERVISOR</td>
+				<td >SUPERVISOR</td>
+			</tr>		
+		</table>
+	</div>
+
+</body>
+</html>
+
